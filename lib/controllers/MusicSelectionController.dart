@@ -1,11 +1,16 @@
 import 'package:get/get.dart';
 
 class MusicSelectionController extends GetxController {
-  // Genre Selection
-  List<String> genres = ['Hip-hop', 'R&B', 'Alternative', 'Pop', 'Rock', 'Electronic', 'Classical', 'Jazz', 'Experimental', 'Blues', 'House', 'Country'];
+  List<String> genres = [
+    'Hip-hop', 'R&B', 'Alternative', 'Pop', 'Rock', 'Electronic',
+    'Classical', 'Jazz', 'Experimental', 'Blues', 'House', 'Country',
+    'Folk', 'Metal', 'Soul', 'Techno', 'Disco', 'Punk',
+  ];
+
   List<String> selectedGenres = [];
 
-  // Interest Selection
+  List<String> expandedCategories = [];
+
   Map<String, List<String>> selectedInterests = {
     'Musician': [],
     'Producer': [],
@@ -13,19 +18,23 @@ class MusicSelectionController extends GetxController {
   };
 
   void toggleGenre(String genre) {
-    if (selectedGenres.contains(genre)) {
-      selectedGenres.remove(genre);
-    } else {
-      selectedGenres.add(genre);
-    }
-    update(); // Triggers GetBuilder to rebuild
+    selectedGenres.contains(genre) ? selectedGenres.remove(genre) : selectedGenres.add(genre);
+    update();
   }
 
   void toggleInterest(String category, String genre) {
-    if (selectedInterests[category]!.contains(genre)) {
-      selectedInterests[category]!.remove(genre);
+    selectedInterests[category]!.contains(genre)
+        ? selectedInterests[category]!.remove(genre)
+        : selectedInterests[category]!.add(genre);
+    update();
+  }
+
+  // Toggle See All / See Less
+  void toggleExpand(String category) {
+    if (expandedCategories.contains(category)) {
+      expandedCategories.remove(category);
     } else {
-      selectedInterests[category]!.add(genre);
+      expandedCategories.add(category);
     }
     update();
   }

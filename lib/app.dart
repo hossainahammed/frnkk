@@ -18,7 +18,8 @@ class frnkApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.splash,
+          // initialRoute: AppRoutes.splash,
+          initialRoute: AppRoutes. onboarding,
           getPages: AppPages.pages,
         );
       },

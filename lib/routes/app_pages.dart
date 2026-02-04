@@ -11,7 +11,7 @@ import 'app_routes.dart';
 
 class AppPages {
   static final pages = [
-    GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
+   // GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
     GetPage(name: AppRoutes.onboarding, page: () => const OnboardingScreen()),
     GetPage(name: AppRoutes.onboarding, page: () => const OnboardingScreen2()),
     GetPage(name: AppRoutes.SelectTypeScreen, page: () => const SelectTypeScreen()),

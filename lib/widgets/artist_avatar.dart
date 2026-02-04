@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ArtistAvatar extends StatelessWidget {
   final String imagePath;
@@ -21,36 +22,50 @@ class ArtistAvatar extends StatelessWidget {
         Stack(
           children: [
             Container(
-              padding: const EdgeInsets.all(2),
+              padding: EdgeInsets.all(2.w),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: selected ? Colors.purple : Colors.transparent,
-                  width: 2,
+                  width: 2.w,
                 ),
               ),
               child: CircleAvatar(
-                radius: 32,
+                radius: 32.r,
                 backgroundImage: AssetImage(imagePath),
               ),
             ),
             if (selected)
-              const Positioned(
-                bottom: 0,
-                right: 0,
+              Positioned(
+                bottom: 0.h,
+                right: 0.w,
                 child: CircleAvatar(
-                  radius: 8,
+                  radius: 8.r,
                   backgroundColor: Colors.purple,
-                  child: Icon(Icons.check, size: 10, color: Colors.white),
+                  child: Icon(
+                    Icons.check,
+                    size: 10.sp,
+                    color: Colors.white,
+                  ),
                 ),
-              )
+              ),
           ],
         ),
-        const SizedBox(height: 6),
-        Text(name,
-            style: const TextStyle(color: Colors.white, fontSize: 12)),
-        Text(match,
-            style: const TextStyle(color: Colors.white54, fontSize: 10)),
+        SizedBox(height: 6.h),
+        Text(
+          name,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 12.sp,
+          ),
+        ),
+        Text(
+          match,
+          style: TextStyle(
+            color: Colors.white54,
+            fontSize: 10.sp,
+          ),
+        ),
       ],
     );
   }

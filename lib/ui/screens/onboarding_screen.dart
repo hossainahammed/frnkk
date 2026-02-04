@@ -3,16 +3,13 @@ import 'package:frnkk/controllers/onboarding_controller.dart';
 import 'package:frnkk/ui/screens/onboarding_screen_2.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Stack(
         children: [
@@ -39,98 +36,101 @@ class OnboardingScreen extends StatelessWidget {
             ),
           ),
 
-          // 3. Content Layer
+          // Content Layer
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
+              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 40.h),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Step',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 32,
+                      fontSize: 32.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  const Text(
+                  Text(
                     'Into Your Music world',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 32,
+                      fontSize: 32.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                   const SizedBox(height: 80),
-
+                  SizedBox(height: 80.h),
                 ],
               ),
             ),
-
           ),
+
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 40.0),
+              padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 40.h),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 30),
+                  SizedBox(height: 30.h),
                   Row(
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: () =>Get.to(() => OnboardingScreen2()),
+                          onTap: () => Get.to(
+                                () => OnboardingScreen2(),
+                            transition: Transition.fade,
+                            duration: const Duration(milliseconds: 300),
+                          ),
                           child: Container(
-                            height: 48,
+                            height: 48.h,
                             decoration: BoxDecoration(
                               color: const Color(0xFFD652E1),
-                              borderRadius: BorderRadius.only(topLeft: Radius.zero, bottomLeft:  Radius.zero, topRight: Radius.circular(30), bottomRight: Radius.circular(30)),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.zero,
+                                bottomLeft: Radius.zero,
+                                topRight: Radius.circular(30.r),
+                                bottomRight: Radius.circular(30.r),
+                              ),
                             ),
                             alignment: Alignment.centerLeft,
-                            padding: const EdgeInsets.only(left: 67, right: 10, top: 10, bottom: 10),
-                            child: const Text(
+                            padding: EdgeInsets.only(left: 67.w, right: 10.w, top: 10.h, bottom: 10.h),
+                            child: Text(
                               'Next',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 24,
+                                fontSize: 24.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
                         ),
                       ),
-                      const SizedBox(width: 15),
+                      SizedBox(width: 15.w),
                       // Circular Icon Button
                       Container(
-                        height:48,
-                        width: 48,
+                        height: 48.h,
+                        width: 48.w,
                         decoration: BoxDecoration(
                           color: const Color(0xFFD652E1).withOpacity(0.7),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.keyboard_double_arrow_right,
                           color: Colors.white,
-                          size: 24,
+                          size: 24.sp,
                         ),
                       ),
-                      const SizedBox(width: 58),
+                      SizedBox(width: 58.w),
                     ],
                   ),
                 ],
-
               ),
-
             ),
           ),
         ],
       ),
     );
-
   }
-
 }
-

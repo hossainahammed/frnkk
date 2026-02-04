@@ -3,7 +3,7 @@ import 'package:frnkk/ui/screens/SelectGenderScreen.dart';
 import 'package:frnkk/widgets/common_widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SelectTypeScreen extends StatefulWidget {
   const SelectTypeScreen({super.key});
@@ -26,17 +26,21 @@ class _SelectTypeScreenState extends State<SelectTypeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color(0xFF080322),
+        color: const Color(0xFF080322),
         //decoration: bgGradient(),
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(24.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'Select Your Type',
-              style: GoogleFonts.poltawskiNowy(fontSize: 18, fontWeight: FontWeight.w600,color: Colors.white),
+              style: GoogleFonts.poltawskiNowy(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24.h),
 
             ...List.generate(types.length, (index) {
               return typeTile(
@@ -50,11 +54,21 @@ class _SelectTypeScreenState extends State<SelectTypeScreen> {
               );
             }),
 
-            const SizedBox(height: 32),
+            SizedBox(height: 32.h),
 
-            nextButton(() {
-              Get.to(() => const SelectGenderScreen());
-            }),
+            Padding(
+              padding: EdgeInsets.only(bottom: 30.h, top: 10.h),
+              child: nextButton(
+                'Next',
+                    () {
+                  Get.to(
+                        () => const SelectGenderScreen(),
+                    transition: Transition.fade,
+                    duration: const Duration(milliseconds: 300),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

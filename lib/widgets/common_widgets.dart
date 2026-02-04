@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// Background Gradient
 BoxDecoration bgGradient() {
@@ -24,13 +25,13 @@ Widget typeTile({
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.all(16),
+      margin: EdgeInsets.symmetric(vertical: 8.h),
+      padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         border: Border.all(
           color: selected ? Colors.purple : Colors.white54,
-          width: 2,
+          width: 2.w,
         ),
       ),
       child: Row(
@@ -40,13 +41,14 @@ Widget typeTile({
                 ? Icons.radio_button_checked
                 : Icons.radio_button_off,
             color: Colors.purple,
+            size: 20.sp,
           ),
-          const SizedBox(width: 12),
+          SizedBox(width: 12.w),
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 16.sp,
             ),
           ),
         ],
@@ -55,24 +57,23 @@ Widget typeTile({
   );
 }
 
-
 /// Gender Card
 Widget genderCard({
   required String imagePath,
   required bool selected,
 }) {
   return Container(
-    width: 173,
-    height: 173,
+    width: 173.w,
+    height: 173.h,
     decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(16),
+      borderRadius: BorderRadius.circular(16.r),
       border: Border.all(
         color: selected ? Colors.purple : Colors.transparent,
-        width: 2,
+        width: 2.w,
       ),
     ),
     child: ClipRRect(
-      borderRadius: BorderRadius.circular(14),
+      borderRadius: BorderRadius.circular(14.r),
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -93,23 +94,25 @@ Widget genderCard({
   );
 }
 
-
-
-Widget nextButton(VoidCallback onTap) {
+Widget nextButton(String buttonText, VoidCallback onTap) {
   return SizedBox(
     width: double.infinity,
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.purple,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(24.r),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 14),
+        padding: EdgeInsets.symmetric(vertical: 14.h),
       ),
       onPressed: onTap,
       child: Text(
-        'Next',
-        style: GoogleFonts.poltawskiNowy(fontSize: 18, fontWeight: FontWeight.w600,color:Colors.white),
+        buttonText,
+        style: GoogleFonts.poltawskiNowy(
+          fontSize: 18.sp,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
       ),
     ),
   );
