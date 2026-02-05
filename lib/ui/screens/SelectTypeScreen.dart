@@ -62,7 +62,7 @@ class _SelectTypeScreenState extends State<SelectTypeScreen> {
                 'Next',
                     () {
                   Get.to(
-                        () => const SelectGenderScreen(),
+                        ()=> const SelectGenderScreen(),
                     transition: Transition.fade,
                     duration: const Duration(milliseconds: 300),
                   );

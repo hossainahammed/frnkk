@@ -122,14 +122,12 @@ class _AddPaymentScreenState extends State<AddPaymentScreen> {
                 width: double.infinity,
                 height: 56.h,
                 child: ElevatedButton(
-                  // Inside AddPaymentScreen state
                   onPressed: () {
-                    // Retrieve the price from arguments (e.g., "$20.00")
                     final args = Get.arguments as Map<String, String>? ?? {};
                     final priceString = args['price'] ?? '\$0.00';
                     final title = args['title'] ?? 'Monthly';
 
-                    // Convert "$20.00" to a double 20.00
+
                     double parsedAmount = double.tryParse(priceString.replaceAll(RegExp(r'[^\d.]'), '')) ?? 0.0;
 
                     Get.to(

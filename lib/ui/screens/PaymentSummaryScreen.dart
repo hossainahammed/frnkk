@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frnkk/controllers/profile_controller.dart';
+import 'package:frnkk/ui/screens/profileScreen.dart';
 import 'package:get/get.dart';
 
 class PaymentSummaryScreen extends StatelessWidget {
@@ -201,25 +203,29 @@ class PaymentSummaryScreen extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFFD458FF),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.r),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
         ),
-        onPressed: () => Get.dialog(const SuccessSubscriptionDialog()),
+        onPressed: () {
+
+          final profileController = Get.isRegistered<ProfileController>()
+              ? Get.find<ProfileController>()
+              : Get.put(ProfileController());
+
+          profileController.updatePlan(planType);
+
+          Get.dialog(const SuccessSubscriptionDialog());
+        },
         child: Text(
           "Confirm Payment",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
+
 }
 
-// Success Dialog
+/// Success Dialog
 
 class SuccessSubscriptionDialog extends StatelessWidget {
   const SuccessSubscriptionDialog({super.key});
@@ -283,7 +289,10 @@ class SuccessSubscriptionDialog extends StatelessWidget {
                     borderRadius: BorderRadius.circular(25.r),
                   ),
                 ),
-                onPressed: () => Get.back(),
+                //onPressed: () => Get.back(),
+
+                /// ////////////////////////////////////////////////// For testing here i just call profile screen  ////////////////////////////////////////////
+                onPressed: () =>Get.to(() => ProfileScreen()),
                 child: Text(
                   "OK",
                   style: TextStyle(

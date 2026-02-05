@@ -78,8 +78,7 @@ class OnboardingScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: () => Get.to(
-                                () => OnboardingScreen2(),
+                          onTap: ()=>Get.to( ()=>OnboardingScreen2(),
                             transition: Transition.fade,
                             duration: const Duration(milliseconds: 300),
                           ),

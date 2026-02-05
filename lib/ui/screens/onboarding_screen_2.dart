@@ -71,13 +71,12 @@ class OnboardingScreen2 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 30.h),  // Responsive height
+                  SizedBox(height: 30.h),
                   Row(
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: () => Get.to(
-                                () => SelectTypeScreen(),
+                          onTap: ()=> Get.to(()=> SelectTypeScreen(),
                             transition: Transition.fade,
                             duration: const Duration(milliseconds: 300),
                           ),
