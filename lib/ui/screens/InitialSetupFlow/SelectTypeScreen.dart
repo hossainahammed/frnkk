@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frnkk/ui/screens/SelectGenderScreen.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/SelectGenderScreen.dart';
 import 'package:frnkk/widgets/common_widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';

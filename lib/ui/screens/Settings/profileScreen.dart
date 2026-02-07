@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/controllers/profile_controller.dart';
-import 'package:frnkk/ui/screens/NotificationScreen.dart';
-import 'package:frnkk/ui/screens/PaymentHistoryScreen.dart';
-import 'package:frnkk/ui/screens/SecurityScreen.dart';
-import 'package:frnkk/ui/screens/contact_us_screenn.dart';
-import 'package:frnkk/ui/screens/personal_data_screen.dart';
+import 'package:frnkk/ui/screens/Settings/NotificationScreen.dart';
+import 'package:frnkk/ui/screens/Settings/PaymentHistoryScreen.dart';
+import 'package:frnkk/ui/screens/Settings/SecurityScreen.dart';
+import 'package:frnkk/ui/screens/Settings/contact_us_screenn.dart';
+import 'package:frnkk/ui/screens/Settings/personal_data_screen.dart';
 import 'package:get/get.dart';
 
-import 'Add Payment.dart';
+import '../Subscription/Add Payment.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

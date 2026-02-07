@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/controllers/profile_controller.dart';
-import 'package:frnkk/ui/screens/profileScreen.dart';
+import 'package:frnkk/ui/screens/Settings/profileScreen.dart';
 import 'package:get/get.dart';
 
 class PaymentSummaryScreen extends StatelessWidget {

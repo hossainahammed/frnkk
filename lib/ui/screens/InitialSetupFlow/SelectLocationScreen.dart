@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:frnkk/ui/screens/choose_genre_interest_screen.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/choose_genre_interest_screen.dart';
 import 'package:frnkk/widgets/common_widgets.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';

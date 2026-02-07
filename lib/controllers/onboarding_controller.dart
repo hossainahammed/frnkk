@@ -1,4 +1,4 @@
-import 'package:frnkk/ui/screens/onboarding_screen_2.dart';
+import 'package:frnkk/ui/screens/OnboardingScreen/onboarding_screen_2.dart';
 import 'package:get/get.dart';
 
 

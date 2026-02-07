@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frnkk/ui/screens/SelectLocationScreen.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/SelectLocationScreen.dart';
 import 'package:frnkk/widgets/common_widgets.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

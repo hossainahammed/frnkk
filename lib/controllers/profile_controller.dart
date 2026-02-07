@@ -22,7 +22,7 @@
 import 'package:flutter/material.dart';
 import 'package:frnkk/Model/TransactionModel.dart';
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/singer_profile_screen.dart';
-import 'package:frnkk/ui/screens/SubscriptionScreen.dart';
+import 'package:frnkk/ui/screens/Subscription/SubscriptionScreen.dart';
 import 'package:frnkk/widgets/LogoutWidget.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';

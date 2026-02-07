@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frnkk/ui/screens/SubscriptionDetailScreen.dart';
+import 'package:frnkk/ui/screens/Subscription/SubscriptionDetailScreen.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

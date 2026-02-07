@@ -1,9 +1,9 @@
-import 'package:frnkk/ui/screens/SelectGenderScreen.dart';
-import 'package:frnkk/ui/screens/SelectLocationScreen.dart';
-import 'package:frnkk/ui/screens/SelectTypeScreen.dart';
-import 'package:frnkk/ui/screens/choose_genre_interest_screen.dart';
-import 'package:frnkk/ui/screens/onboarding_screen.dart';
-import 'package:frnkk/ui/screens/onboarding_screen_2.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/SelectGenderScreen.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/SelectLocationScreen.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/SelectTypeScreen.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/choose_genre_interest_screen.dart';
+import 'package:frnkk/ui/screens/OnboardingScreen/onboarding_screen.dart';
+import 'package:frnkk/ui/screens/OnboardingScreen/onboarding_screen_2.dart';
 import 'package:frnkk/ui/screens/splash_screen.dart';
 import 'package:get/get.dart';
 import 'app_routes.dart';

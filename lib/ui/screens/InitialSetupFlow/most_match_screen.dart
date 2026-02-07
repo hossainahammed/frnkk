@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:frnkk/ui/screens/SubscriptionScreen.dart';
-import 'package:frnkk/ui/screens/most_match_musician_screen.dart';
-import 'package:frnkk/ui/screens/most_match_producer_screen.dart';
-import 'package:frnkk/ui/screens/most_match_songwriter_screen.dart';
+import 'package:frnkk/ui/screens/Subscription/SubscriptionScreen.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/most_match_musician_screen.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/most_match_producer_screen.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/most_match_songwriter_screen.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/common_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Add this import for ScreenUtil

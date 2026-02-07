@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frnkk/controllers/onboarding_controller.dart';
-import 'package:frnkk/ui/screens/onboarding_screen_2.dart';
+import 'package:frnkk/ui/screens/InitialSetupFlow/SelectTypeScreen.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({super.key});
+class OnboardingScreen2 extends StatelessWidget {
+  const OnboardingScreen2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class OnboardingScreen extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/Onboarding_1.png',
+              'assets/images/Onboarding_2.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -36,7 +35,6 @@ class OnboardingScreen extends StatelessWidget {
             ),
           ),
 
-          // Content Layer
           SafeArea(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 40.h),
@@ -78,7 +76,7 @@ class OnboardingScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: ()=>Get.to( ()=>OnboardingScreen2(),
+                          onTap: ()=> Get.to(()=> SelectTypeScreen(),
                             transition: Transition.fade,
                             duration: const Duration(milliseconds: 300),
                           ),
@@ -96,7 +94,7 @@ class OnboardingScreen extends StatelessWidget {
                             alignment: Alignment.centerLeft,
                             padding: EdgeInsets.only(left: 67.w, right: 10.w, top: 10.h, bottom: 10.h),
                             child: Text(
-                              'Next',
+                              'Get Started',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24.sp,
@@ -107,7 +105,7 @@ class OnboardingScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 15.w),
-                      // Circular Icon Button
+
                       Container(
                         height: 48.h,
                         width: 48.w,
