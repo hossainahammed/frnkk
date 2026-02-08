@@ -280,8 +280,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
           ),
           if (isSelected)
             Positioned(
-              top: -8.h,
-              right: -8.w,
+              top: -3.h,
+              right: -3.w,
               child: Container(
                 decoration: const BoxDecoration(
                   color: Color(0xFFD458FF),

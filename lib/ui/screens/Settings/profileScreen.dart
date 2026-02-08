@@ -6,6 +6,8 @@ import 'package:frnkk/ui/screens/Settings/PaymentHistoryScreen.dart';
 import 'package:frnkk/ui/screens/Settings/SecurityScreen.dart';
 import 'package:frnkk/ui/screens/Settings/contact_us_screenn.dart';
 import 'package:frnkk/ui/screens/Settings/personal_data_screen.dart';
+import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/singer_profile_screen.dart';
+import 'package:frnkk/ui/screens/Subscription/SubscriptionScreen.dart';
 import 'package:get/get.dart';
 
 import '../Subscription/Add Payment.dart';
@@ -15,7 +17,8 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ProfileController());
+    // Access the already-registered controller (registered in main.dart)
+    final controller = Get.find<ProfileController>();
 
     return Scaffold(
       backgroundColor: const Color(0xFF080322),
@@ -50,7 +53,6 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 20.h),
-
               Stack(
                 children: [
                   CircleAvatar(
@@ -59,6 +61,7 @@ class ProfileScreen extends StatelessWidget {
                       'assets/images/Rectangle.png',
                     ),
                   ),
+                  // Uncomment if you want to add an edit icon
                   // Positioned(
                   //   bottom: 0,
                   //   right: 0,
@@ -68,12 +71,11 @@ class ProfileScreen extends StatelessWidget {
                   //       color: Color(0xFFFF5E5E),
                   //       shape: BoxShape.circle,
                   //     ),
-                  //     child: ImageIcon(AssetImage('assets/images/profile_Icon/Vector.png'),color: Colors.white, size: 24.sp),
+                  //     child: ImageIcon(AssetImage('assets/images/profile_Icon/Vector.png'), color: Colors.white, size: 24.sp),
                   //   ),
                   // ),
                 ],
               ),
-
               SizedBox(height: 16.h),
               Text(
                 controller.userName.value,
@@ -88,14 +90,26 @@ class ProfileScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.white54, fontSize: 14.sp),
               ),
 
+              const SizedBox(height: 5,),
+              SizedBox(
+                width: double.infinity,
+                height: 48.h,
+                child: OutlinedButton(
+                  // onPressed: (){},
+                  onPressed: () => Get.to(() => const SingerProfileScreen()),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Color(0xFFD458FF)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(24.r)),
+                  ),
+                  child: Text("My Profile",
+                      style: TextStyle(color: Colors.white, fontSize: 16.sp)),
+                ),
+              ),
               SizedBox(height: 30.h),
-
               _buildPlanStatusCard(controller),
-
               SizedBox(height: 30.h),
-
               _buildSectionTitle("Personal Info"),
-              //_buildMenuItem(Icons.person_outline_outlined, "Personal Data"),
               _buildMenuItem(
                 'assets/images/profile_Icon/user-circle.png',
                 "Personal Data",
@@ -104,14 +118,14 @@ class ProfileScreen extends StatelessWidget {
               _buildMenuItem(
                 'assets/images/profile_Icon/Subscription.png',
                 "Subscription ",
-                onTap: () => Get.to(() => const AddPaymentScreen()),
+                //onTap: () => Get.to(() => const AddPaymentScreen()),
+                  onTap: () => Get.to(() => const SubscriptionScreen())
               ),
               _buildMenuItem(
                 'assets/images/profile_Icon/credit-card-03.png',
                 "Payment History",
                 onTap: () => Get.to(() => const PaymentHistoryScreen()),
               ),
-
               SizedBox(height: 20.h),
               _buildSectionTitle("General"),
               _buildMenuItem(
@@ -124,7 +138,6 @@ class ProfileScreen extends StatelessWidget {
                 "Security",
                 onTap: () => Get.to(() => const SecurityScreen()),
               ),
-
               SizedBox(height: 20.h),
               _buildSectionTitle("About"),
               _buildMenuItem(
@@ -142,7 +155,6 @@ class ProfileScreen extends StatelessWidget {
                 isLogout: true,
                 onTap: () => controller.showLogoutBottomSheet(),
               ),
-
               SizedBox(height: 50.h),
             ],
           ),
@@ -153,7 +165,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildPlanStatusCard(ProfileController controller) {
     return Obx(
-      () => Container(
+          () => Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.08),
@@ -173,7 +185,6 @@ class ProfileScreen extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-
                 ElevatedButton(
                   onPressed: controller.onUpgradeTap,
                   style: ElevatedButton.styleFrom(
@@ -184,9 +195,7 @@ class ProfileScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                   ),
                   child: Text(
-                    controller.planStatus.value == "Monthly"
-                        ? "Upgrade"
-                        : "Manage",
+                    controller.planStatus.value == "Monthly" ? "Upgrade" : "Manage",
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
@@ -225,120 +234,6 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  // Widget _buildPlanStatusCard(ProfileController controller) {
-  //   return Obx(() => Container(
-  //     padding: EdgeInsets.all(16.w),
-  //     decoration: BoxDecoration(
-  //       color: Colors.white.withOpacity(0.08),
-  //       borderRadius: BorderRadius.circular(16.r),
-  //     ),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             Text(
-  //               "Your Plan Status",
-  //               style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w600),
-  //             ),
-  //             // Hide upgrade button if they are already on a premium plan
-  //             if (controller.planStatus.value == "Basic")
-  //               ElevatedButton(
-  //                 onPressed: controller.onUpgradeTap,
-  //                 style: ElevatedButton.styleFrom(
-  //                   backgroundColor: const Color(0xFFFF5E5E),
-  //                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-  //                   padding: EdgeInsets.symmetric(horizontal: 16.w),
-  //                 ),
-  //                 child: const Text("Upgrade", style: TextStyle(color: Colors.white)),
-  //               ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 12.h),
-  //         Row(
-  //           children: [
-  //             Container(
-  //               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-  //               decoration: BoxDecoration(
-  //                 color: Colors.white,
-  //                 borderRadius: BorderRadius.circular(8.r),
-  //               ),
-  //               child: Text(
-  //                 controller.planStatus.value,
-  //                 style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-  //               ),
-  //             ),
-  //             SizedBox(width: 16.w),
-  //             Text(
-  //               "Plan expire: ${controller.planExpiry.value}",
-  //               style: TextStyle(color: Colors.white54, fontSize: 13.sp),
-  //             ),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   ));
-  // }
-
-  // Widget _buildPlanStatusCard(ProfileController controller) {
-  //   return Container(
-  //     padding: EdgeInsets.all(16.w),
-  //     decoration: BoxDecoration(
-  //       color: Colors.white.withOpacity(0.08),
-  //       borderRadius: BorderRadius.circular(16.r),
-  //     ),
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //           children: [
-  //             Text(
-  //               "Your Plan Status",
-  //               style: TextStyle(
-  //                 color: Colors.white,
-  //                 fontSize: 16.sp,
-  //                 fontWeight: FontWeight.w600,
-  //               ),
-  //             ),
-  //             ElevatedButton(
-  //               onPressed: controller.onUpgradeTap,
-  //               style: ElevatedButton.styleFrom(
-  //                 backgroundColor: const Color(0xFFFF5E5E),
-  //                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
-  //                 padding: EdgeInsets.symmetric(horizontal: 16.w),
-  //               ),
-  //               child: const Text("Upgrade", style: TextStyle(color: Colors.white)),
-  //             ),
-  //           ],
-  //         ),
-  //         SizedBox(height: 12.h),
-  //         Row(
-  //           children: [
-  //             Container(
-  //               padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-  //               decoration: BoxDecoration(
-  //                 color: Colors.white,
-  //                 borderRadius: BorderRadius.circular(8.r),
-  //               ),
-  //               child: Text(
-  //                 controller.planStatus.value,
-  //                 style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-  //               ),
-  //             ),
-  //             SizedBox(width: 16.w),
-  //             Text(
-  //               "Plan expire: ${controller.planExpiry.value}",
-  //               style: TextStyle(color: Colors.white54, fontSize: 13.sp),
-  //             ),
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget _buildSectionTitle(String title) {
     return Padding(
       padding: EdgeInsets.only(bottom: 12.h, top: 8.h),
@@ -357,11 +252,11 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildMenuItem(
-    dynamic icon,
-    String title, {
-    bool isLogout = false,
-    VoidCallback? onTap,
-  }) {
+      dynamic icon,
+      String title, {
+        bool isLogout = false,
+        VoidCallback? onTap,
+      }) {
     Widget leading;
     if (icon is IconData) {
       leading = Icon(

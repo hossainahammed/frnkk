@@ -108,8 +108,8 @@ class ProfileController extends GetxController {
 
   void confirmLogout() {
     //Get.back();
-    //Get.offAllNamed('/login');
-    Get.to(()=>SingerProfileScreen());
+    Get.offAllNamed('/login');
+    //Get.to(()=>SingerProfileScreen());
 
   }
 }

@@ -11,6 +11,15 @@ class OnboardingController extends GetxController {
   var selectedGender = ''.obs;
   var selectedLocation = ''.obs;
 
+  void login() {
+    Get.toNamed('/login');
+  }
+  void signup()
+  {
+    Get.toNamed('/signup');
+  }
+  void continueAsGuest() => print("Continuing as Guest");
+  void loginWithGoogle() => print("Google Sign-in triggered");
   void nextStep() {
     if (currentStep.value < 2) {
       currentStep.value++;

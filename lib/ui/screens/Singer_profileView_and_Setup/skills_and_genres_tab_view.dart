@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/Model/ArtistModel.dart';
+//import 'package:frnkk/Model/ArtistModel.dart';
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/add_skills_genres_screen.dart';
 import 'package:frnkk/controllers/singer_profile_controller.dart';
 import 'package:get/get.dart';
+
+//import '../../../artists_profile/artists_model.dart';
+
+
 
 class SkillsAndGenresTabView extends StatelessWidget {
   final Artist data;

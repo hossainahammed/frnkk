@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:frnkk/controllers/onboarding_controller.dart';
+import 'package:frnkk/routes/app_routes.dart';
 import 'package:frnkk/ui/screens/InitialSetupFlow/SelectTypeScreen.dart';
+import 'package:frnkk/ui/screens/OnboardingScreen/onboarding3_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -76,7 +78,8 @@ class OnboardingScreen2 extends StatelessWidget {
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: ()=> Get.to(()=> SelectTypeScreen(),
+                          //onTap: ()=> Get.to(()=> SelectTypeScreen(),
+                           onTap: ()=> Get.to(()=> OnboardingScreen_3(), // Instead of Get.to(() => OnboardingScreen_3())
                             transition: Transition.fade,
                             duration: const Duration(milliseconds: 300),
                           ),

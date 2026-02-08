@@ -17,10 +17,12 @@ dependencies:
   get: ^4.6.6
   flutter_otp_text_field: ^1.1.0+2
   http: ^1.2.0
-  google_fonts: ^6.2.1
+  google_fonts: ^8.0.0
   flutter_screenutil: ^5.9.3
   device_preview: ^1.1.0
   image_picker: ^1.2.1
+  flutter_card_swiper: ^7.2.0
+
 
   cupertino_icons: ^1.0.8
 
@@ -43,5 +45,14 @@ flutter:
   assets:
    - assets/images/
    - assets/images/profile_Icon/
+   - assets/images/onboarding_images/
+   - assets/images/authentication_images/
+   - assets/images/home_images/
+   - assets/images/navbar_icons/
+   - assets/images/explore_images/
+   - assets/images/artists_profile_images/
+   - assets/images/album_images/
+   - assets/images/drawer_image/
+   - assets/images/notifications_images/
 
 

@@ -3,6 +3,7 @@ import 'package:frnkk/ui/screens/Subscription/SubscriptionScreen.dart';
 import 'package:frnkk/ui/screens/InitialSetupFlow/most_match_musician_screen.dart';
 import 'package:frnkk/ui/screens/InitialSetupFlow/most_match_producer_screen.dart';
 import 'package:frnkk/ui/screens/InitialSetupFlow/most_match_songwriter_screen.dart';
+import 'package:frnkk/ui/screens/home/home_view.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/common_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Add this import for ScreenUtil
@@ -113,12 +114,17 @@ class _MostMatchScreenState extends State<MostMatchScreen> {
                 bottom: 30.h,
                 top: 10.h,
               ), // Responsive padding
-              child: nextButton('Get started', () {
+              child: nextButton('Get Started', () {
                 Get.to(
-                  () => const SubscriptionScreen(),
+                      () => const HomeScreen(),
                   transition: Transition.fade,
                   duration: const Duration(milliseconds: 300),
                 );
+                // Get.to(
+                //   () => const SubscriptionScreen(),
+                //   transition: Transition.fade,
+                //   duration: const Duration(milliseconds: 300),
+                // );
               }),
             ),
             SizedBox(height: 30.h),
