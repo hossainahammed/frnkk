@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frnkk/controllers/GigController.dart';
+import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/CreateNewGigScreen.dart';
 import 'package:get/get.dart';
 
 class AddGigScreen extends StatelessWidget {
@@ -7,6 +10,9 @@ class AddGigScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Ensuring we use the permanent controller instance
+    final GigController controller = Get.put(GigController(), permanent: true);
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -30,9 +36,14 @@ class AddGigScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: OutlinedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Reset editing state before creating a new one
+                      controller.editingIndex.value = -1;
+                      Get.to(() => const CreateNewGigScreen());
+                    },
                     icon: Icon(Icons.add, color: Colors.white, size: 18.sp),
-                    label: Text("Create New Gig", style: TextStyle(color: Colors.white, fontSize: 13.sp)),
+                    label: Text("Create New Gig",
+                        style: TextStyle(color: Colors.white, fontSize: 13.sp)),
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Color(0xFFD458FF)),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
@@ -41,13 +52,28 @@ class AddGigScreen extends StatelessWidget {
                 ),
               ),
 
-              // --- Gigs List ---
+              // --- DYNAMIC GIGS LIST ---
               Expanded(
-                child: ListView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  itemCount: 5,
-                  itemBuilder: (context, index) => _buildGigCard(),
-                ),
+                child: Obx(() {
+                  if (controller.publishedGigs.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "No Gigs added yet.\nClick '+' to create one!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white54, fontSize: 14.sp),
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    itemCount: controller.publishedGigs.length,
+                    itemBuilder: (context, index) {
+                      final gig = controller.publishedGigs[index];
+                      // Pass the index and controller to the card
+                      return _buildGigCard(gig, index, controller);
+                    },
+                  );
+                }),
               ),
             ],
           ),
@@ -56,7 +82,8 @@ class AddGigScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGigCard() {
+  // UPDATED: Added index and controller parameters
+  Widget _buildGigCard(GigModel gig, int index, GigController controller) {
     return Container(
       margin: EdgeInsets.only(bottom: 15.h),
       padding: EdgeInsets.all(12.w),
@@ -68,9 +95,16 @@ class AddGigScreen extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Dynamic Image Handling
           ClipRRect(
             borderRadius: BorderRadius.circular(10.r),
-            child: Image.asset('assets/images/gig_thumb.png', width: 90.w, height: 90.w, fit: BoxFit.cover),
+            child: gig.imagePath.isEmpty
+                ? Image.asset(
+                'assets/images/Add_Gig.png',
+                width: 90.w, height: 90.w, fit: BoxFit.cover)
+                : Image.file(
+                File(gig.imagePath),
+                width: 90.w, height: 90.w, fit: BoxFit.cover),
           ),
           SizedBox(width: 12.w),
           Expanded(
@@ -80,18 +114,80 @@ class AddGigScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Singer", style: TextStyle(color: const Color(0xFFD458FF), fontSize: 16.sp, fontWeight: FontWeight.bold)),
-                    const Icon(Icons.more_vert, color: Colors.white70, size: 20),
+                    Text(gig.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(color: const Color(0xFFD458FF), fontSize: 16.sp, fontWeight: FontWeight.bold)),
+
+                    // --- UPDATED: 3-DOT MENU WITH EDIT & CANCEL ---
+                    PopupMenuButton<String>(
+                      icon: const Icon(Icons.more_vert, color: Colors.white70),
+                      color: const Color(0xFF2D0A4E),
+                      offset: const Offset(0, 40),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
+                      onSelected: (value) {
+                        if (value == 'edit') {
+                          controller.loadGigForEdit(index);
+                        } else if (value == 'delete') {
+                          // Simple delete logic
+                          controller.publishedGigs.removeAt(index);
+                          Get.snackbar("Deleted", "Gig removed successfully",
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.white12,
+                              colorText: Colors.white
+                          );
+                        }
+                      },
+                      itemBuilder: (BuildContext context) => [
+                        const PopupMenuItem(
+                          value: 'edit',
+                          child: Row(
+                            children: [
+                              Icon(Icons.edit, color: Colors.white, size: 18),
+                              SizedBox(width: 8),
+                              Text("Edit", style: TextStyle(color: Colors.white)),
+                            ],
+                          ),
+                        ),
+                        const PopupMenuItem(
+                          value: 'delete',
+                          child: Row(
+                            children: [
+                              Icon(Icons.delete_outline, color: Colors.redAccent, size: 18),
+                              SizedBox(width: 8),
+                              Text("Delete", style: TextStyle(color: Colors.redAccent)),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-                Text("Salena Gomez", style: TextStyle(color: Colors.white, fontSize: 14.sp)),
-                Text("Dhanmondi, Dhaka", style: TextStyle(color: Colors.white38, fontSize: 12.sp)),
+                Row(
+                  children: [
+                    Text(gig.name, style: TextStyle(color: Colors.white, fontSize: 14.sp)),
+                    Spacer(),
+                    Text(
+                        gig.eventTypes.isNotEmpty ? gig.eventTypes[0]['price']! : "N/A",
+                        style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w600)
+                    ),
+
+                  ],
+                ),
                 SizedBox(height: 10.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("300 \$-500\$", style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w600)),
-                    Text("Pop, Rock, Bangla", style: TextStyle(color: Colors.white70, fontSize: 11.sp)),
+                    Text(gig.location, style: TextStyle(color: Colors.white38, fontSize: 12.sp)),
+
+                    Flexible(
+                      child: Text(
+                          gig.skills.join(", "),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.white70, fontSize: 11.sp)
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -102,8 +198,6 @@ class AddGigScreen extends StatelessWidget {
     );
   }
 
-
-
   Widget _buildSimpleAppBar(String title) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -112,21 +206,6 @@ class AddGigScreen extends StatelessWidget {
           IconButton(icon: const Icon(Icons.arrow_back, color: Colors.white), onPressed: () => Get.back()),
           Text(title, style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w600)),
         ],
-      ),
-    );
-  }
-
-  Widget _buildPinkSaveButton(VoidCallback onTap) {
-    return SizedBox(
-      width: double.infinity,
-      height: 54.h,
-      child: ElevatedButton(
-        onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFD458FF),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27.r)),
-        ),
-        child: Text("Save", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.white)),
       ),
     );
   }
