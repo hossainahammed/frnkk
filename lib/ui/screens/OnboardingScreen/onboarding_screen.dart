@@ -45,16 +45,16 @@ class OnboardingScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Step',
-                    style: TextStyle(
+                    'Step into ',
+                    style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 32.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   Text(
-                    'Into Your Music world',
-                    style: TextStyle(
+                    'your music world',
+                    style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 32.sp,
                       fontWeight: FontWeight.w700,

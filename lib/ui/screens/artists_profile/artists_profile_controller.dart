@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class ArtistProfileController extends GetxController {
   var artistData = Rxn<Artist>();
   final RxBool isAboutExpanded = false.obs; 
-  var selectedTab = "Bio".obs; // Ensure this is exactly like this
+  var selectedTab = "Bio".obs;
   final RxBool isAudioExpanded = false.obs;
 
   void toggleAudioExpanded() {

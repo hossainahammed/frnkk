@@ -8,8 +8,11 @@ class SubscriptionDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // To this:
+    final args = Get.arguments as Map<String, dynamic>? ?? {};
+    final bool fromMainSwipe = args['fromMainSwipe'] ?? false;
 
-    final args = Get.arguments as Map<String, String>? ?? {};
+    // final args = Get.arguments as Map<String, String>? ?? {};
     final title = args['title'] ?? 'Subscription';
     final price = args['price'] ?? '\$0.00';
     final originalPrice = args['originalPrice'] ?? '\$0.00';
@@ -153,7 +156,10 @@ class SubscriptionDetailScreen extends StatelessWidget {
                       Get.to(
                         () => const AddPaymentScreen(),
 
-                        arguments: {'title': title, 'price': price},
+                        arguments: {'title': title,
+                          'price': price,
+                          'fromMainSwipe': fromMainSwipe,
+                        },
                         transition: Transition.fade,
                         duration: const Duration(milliseconds: 300),
                       );

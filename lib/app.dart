@@ -4,8 +4,6 @@ import 'package:frnkk/routes/app_pages.dart';
 import 'package:frnkk/routes/app_routes.dart';
 import 'package:get/get.dart';
 
-
-
 class frnkApp extends StatelessWidget {
   const frnkApp({super.key});
 
@@ -19,11 +17,14 @@ class frnkApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           // initialRoute: AppRoutes.splash,
-          initialRoute: AppRoutes. onboarding,
+          initialRoute: AppRoutes.onboarding,
           getPages: AppPages.pages,
+          theme: ThemeData(
+            brightness: Brightness.dark,
+           // fontFamily: 'Georgia',
+          ),
         );
       },
     );
   }
 }
-

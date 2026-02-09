@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/controllers/profile_controller.dart';
+import 'package:frnkk/routes/app_routes.dart';
 import 'package:frnkk/ui/screens/Settings/NotificationScreen.dart';
 import 'package:frnkk/ui/screens/Settings/PaymentHistoryScreen.dart';
 import 'package:frnkk/ui/screens/Settings/SecurityScreen.dart';
@@ -8,6 +9,8 @@ import 'package:frnkk/ui/screens/Settings/contact_us_screenn.dart';
 import 'package:frnkk/ui/screens/Settings/personal_data_screen.dart';
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/singer_profile_screen.dart';
 import 'package:frnkk/ui/screens/Subscription/SubscriptionScreen.dart';
+import 'package:frnkk/ui/screens/home/home_view.dart';
+import 'package:frnkk/widgets/bottom_navigation_bar/navigation_controller.dart';
 import 'package:get/get.dart';
 
 import '../Subscription/Add Payment.dart';
@@ -25,10 +28,42 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white, size: 24.sp),
-          onPressed: () => Get.back(),
+          onPressed: () {
+            // 1. Check if GetX has any "previous" routes to go back to
+            // This handles returning from 'Personal Data' -> 'Profile'
+            if (Get.key.currentState?.canPop() ?? false) {
+              Get.back();
+            } else {
+              // 2. If there's nothing to pop, we are at the root of the tab.
+              // Switch the tab index to Home (0)
+              Get.find<NavigationController>().changeTabIndex(0);
+            }
+          },
         ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back, color: Colors.white, size: 24.sp),
+        //   onPressed: () {
+        //     final nav = Navigator.of(context);
+        //
+        //     // Check if there is a screen to pop in the current navigator
+        //     if (nav.canPop()) {
+        //       nav.pop();
+        //     } else {
+        //       // If we are at the root of the profile tab, switch back to Home (Index 0)
+        //       Get.find<NavigationController>().changeTabIndex(0);
+        //     }
+        //   },
+        // ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back, color: Colors.white, size: 24.sp),
+        //   onPressed: () {
+        //     // Find the NavigationController and switch back to the first tab (Home)
+        //     Get.find<NavigationController>().changeTabIndex(0);
+        //   },
+        // ),
         title: Text(
           "Profile",
           style: TextStyle(
@@ -158,9 +193,13 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(height: 50.h),
             ],
           ),
+
         ),
+
       ),
+
     );
+
   }
 
   Widget _buildPlanStatusCard(ProfileController controller) {

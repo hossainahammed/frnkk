@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:frnkk/ui/screens/Subscription/SubscriptionScreen.dart';
 import 'package:frnkk/ui/screens/home/home_controller.dart';
 import 'package:frnkk/ui/screens/home/home_view.dart';
 import 'package:frnkk/ui/screens/notifications/notifications_view.dart';
@@ -7,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:frnkk/widgets/custom_app_header.dart';
-
 
 class MainSwipePage extends StatefulWidget {
   const MainSwipePage({super.key});
@@ -306,13 +306,21 @@ class _MainSwipePageState extends State<MainSwipePage> {
               mainAxisSize: MainAxisSize
                   .min, // Essential: prevents Row from taking full width
               children: [
+                // In MainSwipePage.dart
                 IconButton(
-                  icon: const Icon(
-                    Icons.workspace_premium,
-                    color: Colors.white,
+                  icon: const Icon(Icons.workspace_premium, color: Colors.white),
+                  onPressed: () => Get.to(
+                          () => const SubscriptionScreen(),
+                      arguments: {'fromMainSwipe': true} // Pass the flag here
                   ),
-                  onPressed: () {},
                 ),
+                // IconButton(
+                //   icon: const Icon(
+                //     Icons.workspace_premium,
+                //     color: Colors.white,
+                //   ),
+                //   onPressed: ()=>Get.to(()=>const SubscriptionScreen()),
+                // ),
                 IconButton(
                   icon: const Icon(
                     Icons.notifications_none,

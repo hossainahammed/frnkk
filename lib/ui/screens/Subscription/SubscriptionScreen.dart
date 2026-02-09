@@ -18,6 +18,15 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF080322),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Get.back(), // Navigates back to previous screen
+        ),
+      ),
+      extendBodyBehindAppBar: true,
       body: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -299,14 +308,17 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
       ),
     );
   }
-
   Widget _buildContinueButton() {
     return SizedBox(
       width: double.infinity,
       height: 56.h,
       child: ElevatedButton(
         onPressed: () {
-          Map<String, String> arguments;
+          // 1. Capture the flag that came from the previous screen (MainSwipePage)
+          final bool fromMainSwipe = Get.arguments?['fromMainSwipe'] ?? false;
+
+          // 2. Prepare your plan arguments
+          Map<String, dynamic> arguments; // Use dynamic to allow bool and String
           if (selectedPlan == 0) {
             arguments = {
               "title": "Monthly",
@@ -323,18 +335,21 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             };
           }
 
+          // 3. IMPORTANT: Add the flag back into the map so the NEXT screen gets it
+          arguments['fromMainSwipe'] = fromMainSwipe;
+
           // Use GetX for navigation
           Get.to(
-            () => const SubscriptionDetailScreen(),
+                () => const SubscriptionDetailScreen(),
             arguments: arguments,
-            transition: Transition.fade, // Optional: Add smooth transition
+            transition: Transition.fade,
             duration: const Duration(milliseconds: 300),
           );
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xFFD458FF),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.r), // Responsive radius
+            borderRadius: BorderRadius.circular(30.r),
           ),
           elevation: 0,
         ),
@@ -342,11 +357,61 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
           "Continue – ${selectedPlan == 0 ? '\$20.00' : '\$200.00'} total",
           style: TextStyle(
             color: Colors.white,
-            fontSize: 18.sp, // Responsive font size
+            fontSize: 18.sp,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
     );
   }
+
+  // Widget _buildContinueButton() {
+  //   return SizedBox(
+  //     width: double.infinity,
+  //     height: 56.h,
+  //     child: ElevatedButton(
+  //       onPressed: () {
+  //         Map<String, String> arguments;
+  //         if (selectedPlan == 0) {
+  //           arguments = {
+  //             "title": "Monthly",
+  //             "price": "\$20.00",
+  //             "originalPrice": "\$25.00",
+  //             "discount": "20%",
+  //           };
+  //         } else {
+  //           arguments = {
+  //             "title": "Yearly",
+  //             "price": "\$200.00",
+  //             "originalPrice": "\$240.00",
+  //             "discount": " 40.00%",
+  //           };
+  //         }
+  //
+  //         // Use GetX for navigation
+  //         Get.to(
+  //           () => const SubscriptionDetailScreen(),
+  //           arguments: arguments,
+  //           transition: Transition.fade, // Optional: Add smooth transition
+  //           duration: const Duration(milliseconds: 300),
+  //         );
+  //       },
+  //       style: ElevatedButton.styleFrom(
+  //         backgroundColor: const Color(0xFFD458FF),
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(30.r), // Responsive radius
+  //         ),
+  //         elevation: 0,
+  //       ),
+  //       child: Text(
+  //         "Continue – ${selectedPlan == 0 ? '\$20.00' : '\$200.00'} total",
+  //         style: TextStyle(
+  //           color: Colors.white,
+  //           fontSize: 18.sp, // Responsive font size
+  //           fontWeight: FontWeight.bold,
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 }

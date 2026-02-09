@@ -47,18 +47,18 @@ class CustomAppDrawer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 14),
               children: [
                 _buildSectionHeader("Personal Info"),
-                _buildDrawerItem(Icons.person_outline, "Personal Data",onTap: () => const PersonalDataScreen(),),
-                _buildDrawerItem(Icons.workspace_premium_outlined, "Subscription",onTap: () => SubscriptionScreen(),),
-                _buildDrawerItem(Icons.payment_outlined, "Payment History",onTap: () => const PaymentHistoryScreen(),),
+                _buildDrawerItem(Icons.person_outline, "Personal Data",onTap: () => Get.to(() => const PersonalDataScreen()),),
+                _buildDrawerItem(Icons.workspace_premium_outlined, "Subscription",onTap: () => Get.to(() => const SubscriptionScreen()),),
+                _buildDrawerItem(Icons.payment_outlined, "Payment History",onTap: () => Get.to(() => const PaymentHistoryScreen()),),
                 
                 const SizedBox(height: 25),
                 _buildSectionHeader("General"),
-                _buildDrawerItem(Icons.notifications_none_outlined, "Notification Setting",onTap: () => const NotificationScreen(),),
-                _buildDrawerItem(Icons.security_outlined, "Security",onTap: () => const SecurityScreen(),),
+                _buildDrawerItem(Icons.notifications_none_outlined, "Notification Setting",onTap: () => Get.to(() => const NotificationScreen()),),
+                _buildDrawerItem(Icons.security_outlined, "Security",onTap: () => Get.to(() => const SecurityScreen()),),
                 
                 const SizedBox(height: 25),
                 _buildSectionHeader("About",),
-                _buildDrawerItem(Icons.mail_outline, "Contact Us",onTap: () => const ContactUsScreen(),),
+                _buildDrawerItem(Icons.mail_outline, "Contact Us",onTap: () => Get.to(() => const ContactUsScreen()),),
                 _buildDrawerItem(Icons.lock_outline, "Privacy & Policy",onTap: () => _handleLogout(),),
                 
                 //const SizedBox(height: 20),

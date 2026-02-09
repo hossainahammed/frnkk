@@ -123,22 +123,47 @@ class _AddPaymentScreenState extends State<AddPaymentScreen> {
                 height: 56.h,
                 child: ElevatedButton(
                   onPressed: () {
-                    final args = Get.arguments as Map<String, String>? ?? {};
+                    // 1. Change cast from Map<String, String> to Map<String, dynamic>
+                    final args = Get.arguments as Map<String, dynamic>? ?? {};
+
+                    // 2. Extract your data
                     final priceString = args['price'] ?? '\$0.00';
                     final title = args['title'] ?? 'Monthly';
-
+                    final bool fromMainSwipe = args['fromMainSwipe'] ?? false; // Catch the baton!
 
                     double parsedAmount = double.tryParse(priceString.replaceAll(RegExp(r'[^\d.]'), '')) ?? 0.0;
 
+                    // 3. Pass everything to the Summary Screen
                     Get.to(
                           () => PaymentSummaryScreen(
                         planType: title,
                         amount: parsedAmount,
                       ),
+                      // Pass the arguments again so the SuccessDialog can see them
+                      arguments: {
+                        'fromMainSwipe': fromMainSwipe,
+                      },
                       transition: Transition.fade,
                       duration: const Duration(milliseconds: 300),
                     );
                   },
+                  // onPressed: () {
+                  //   final args = Get.arguments as Map<String, String>? ?? {};
+                  //   final priceString = args['price'] ?? '\$0.00';
+                  //   final title = args['title'] ?? 'Monthly';
+                  //
+                  //
+                  //   double parsedAmount = double.tryParse(priceString.replaceAll(RegExp(r'[^\d.]'), '')) ?? 0.0;
+                  //
+                  //   Get.to(
+                  //         () => PaymentSummaryScreen(
+                  //       planType: title,
+                  //       amount: parsedAmount,
+                  //     ),
+                  //     transition: Transition.fade,
+                  //     duration: const Duration(milliseconds: 300),
+                  //   );
+                  // },
 
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFD458FF),

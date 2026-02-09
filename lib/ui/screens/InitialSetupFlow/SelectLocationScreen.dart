@@ -40,20 +40,29 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
               children: [
                 Text(
                   'Choose your location',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
+                    style: GoogleFonts.nunitoSans(
+                      color: Colors.white,
+                      fontSize: 24.sp,
+                      fontWeight: FontWeight.w600,
+                    )
+                  // style: TextStyle(
+                  //   color: Colors.white,
+                  //   fontSize: 24.sp,
+                  //   fontWeight: FontWeight.w600,
+                  // ),
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () => print("Skip Tapped"),
+                  onTap: (){Get.to(
+                        () => const ChooseGenreInterestScreen(),
+                    transition: Transition.fade,
+                    duration: const Duration(milliseconds: 300),
+                  );},
                   child: Text(
                     'Skip',
-                    style: TextStyle(
+                    style: GoogleFonts.poltawskiNowy(
                       color: Colors.white,
-                      fontSize: 20.sp,
+                      fontSize: 18.sp,
                       decoration: TextDecoration.underline,
                       decorationColor: Colors.white,
                     ),

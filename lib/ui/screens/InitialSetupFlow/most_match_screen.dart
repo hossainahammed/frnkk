@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:frnkk/routes/app_routes.dart';
 import 'package:frnkk/ui/screens/Subscription/SubscriptionScreen.dart';
 import 'package:frnkk/ui/screens/InitialSetupFlow/most_match_musician_screen.dart';
 import 'package:frnkk/ui/screens/InitialSetupFlow/most_match_producer_screen.dart';
 import 'package:frnkk/ui/screens/InitialSetupFlow/most_match_songwriter_screen.dart';
 import 'package:frnkk/ui/screens/home/home_view.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/common_widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Add this import for ScreenUtil
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MostMatchScreen extends StatefulWidget {
   const MostMatchScreen({super.key});
@@ -33,103 +36,103 @@ class _MostMatchScreenState extends State<MostMatchScreen> {
   final Set<String> selectedSongWriters = {};
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF080322),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Column(
-          children: [
-            SizedBox(height: 60.h),
-            /// HEADER
-            Row(
-              children: [
-                Text(
-                  'Most Match',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 26.sp,
-                    fontWeight: FontWeight.w600,
+      // We use Stack to layer the background widgets behind the UI
+      body: Stack(
+        children: [
+          // 1. This puts the exact multi-glow background you wanted
+          AppDecorations.buildFullBackground(),
+
+          // 2. This is your UI content layered on top
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                children: [
+                  SizedBox(height: 30.h), // Adjusted for SafeArea
+
+                  /// HEADER
+                  Row(
+                    children: [
+                      Text(
+                        'Most Match',
+                        style: GoogleFonts.poltawskiNowy(
+                          color: Colors.white,
+                          fontSize: 26.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () => Get.offAllNamed(AppRoutes.home),
+                        child: Text(
+                          'Skip',
+                          style: GoogleFonts.poltawskiNowy(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const Spacer(),
-                GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.sp,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.white,
+
+                  SizedBox(height: 20.h),
+
+                  /// SEARCH BAR
+                  TextFormField(
+                    controller: _matchController,
+                    style: const TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      hintText: 'Search Artist',
+                      hintStyle: const TextStyle(color: Color(0xFFA9A8A8)),
+                      filled: true,
+                      fillColor: Colors.white.withOpacity(0.05),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(48.r),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
 
-            SizedBox(height: 20.h),
-            /// SEARCH BAR
-            TextFormField(
-              controller: _matchController,
-              style: const TextStyle(color: Colors.white),
-              decoration: InputDecoration(
-                hintText: 'Search Artist',
-                hintStyle: const TextStyle(color: Color(0xFFA9A8A8)),
-                filled: true,
-                fillColor: Colors.white.withOpacity(0.1),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    48.r,
-                  ),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
+                  SizedBox(height: 20.h),
 
-            SizedBox(height: 20.h),
-            /// CONTENT
-            Expanded(
-              child: ListView(
-                children: [
-                  _artistCategorySection(
-                    title: "Musician",
-                    selectedSet: selectedMusicians,
+                  /// CONTENT
+                  Expanded(
+                    child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        _artistCategorySection(
+                          title: "Musician",
+                          selectedSet: selectedMusicians,
+                        ),
+                        _artistCategorySection(
+                          title: "Producer",
+                          selectedSet: selectedProducers,
+                        ),
+                        _artistCategorySection(
+                          title: "Song Writer",
+                          selectedSet: selectedSongWriters,
+                        ),
+                      ],
+                    ),
                   ),
-                  _artistCategorySection(
-                    title: "Producer",
-                    selectedSet: selectedProducers,
-                  ),
-                  _artistCategorySection(
-                    title: "Song Writer",
-                    selectedSet: selectedSongWriters,
+
+                  /// NEXT BUTTON
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 30.h, top: 10.h),
+                    child: nextButton('Get Started', () {
+                      Get.to(() => const HomeScreen(), transition: Transition.fade);
+                    }),
                   ),
                 ],
               ),
             ),
-
-            /// NEXT BUTTON
-            Padding(
-              padding: EdgeInsets.only(
-                bottom: 30.h,
-                top: 10.h,
-              ), // Responsive padding
-              child: nextButton('Get Started', () {
-                Get.to(
-                      () => const HomeScreen(),
-                  transition: Transition.fade,
-                  duration: const Duration(milliseconds: 300),
-                );
-                // Get.to(
-                //   () => const SubscriptionScreen(),
-                //   transition: Transition.fade,
-                //   duration: const Duration(milliseconds: 300),
-                // );
-              }),
-            ),
-            SizedBox(height: 30.h),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -211,8 +214,7 @@ class _MostMatchScreenState extends State<MostMatchScreen> {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: artists.length,
-            separatorBuilder: (_, __) =>
-                SizedBox(width: 16.w),
+            separatorBuilder: (_, __) => SizedBox(width: 16.w),
             itemBuilder: (_, index) {
               final artist = artists[index];
               final name = artist["name"]!;
@@ -279,11 +281,7 @@ class _MostMatchScreenState extends State<MostMatchScreen> {
                   child: CircleAvatar(
                     radius: 10.r,
                     backgroundColor: const Color(0xFFB84DFF),
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                      size: 14.sp,
-                    ),
+                    child: Icon(Icons.check, color: Colors.white, size: 14.sp),
                   ),
                 ),
             ],
@@ -305,10 +303,7 @@ class _MostMatchScreenState extends State<MostMatchScreen> {
 
           Text(
             match,
-            style: TextStyle(
-              color: Colors.white54,
-              fontSize: 11.sp,
-            ),
+            style: TextStyle(color: Colors.white54, fontSize: 11.sp),
           ),
         ],
       ),

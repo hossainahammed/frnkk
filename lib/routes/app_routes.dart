@@ -8,11 +8,19 @@ class AppRoutes {
   static const forgot_password = '/forgot-password';
   static const otp = '/verify-otp';
   static const create_new_password = '/create-new-password';
-  static const home = '/home';
+
   static const SelectTypeScreen = '/SelectTypeScreen';
   static const SelectGenderScreen = '/SelectGenderScreen';
   static const SelectLocationScreen = '/SelectLocationScreen';
   static const ChooseGenreInterestScreen = '/ChooseGenreInterestScreen';
+
+
+  static const home = '/home';
+  static const match = '/match';
+  static const profile = '/profile';
+  static const artists = '/artists';
+  // static const explore = '/explore';
+  // static const message = '/message';
 
   
 }

@@ -48,7 +48,7 @@ class _MostMatchProducerScreenState extends State<MostMatchProducerScreen> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: ()=>Get.back(),
                   child: Text(
                     'Skip',
                     style: TextStyle(

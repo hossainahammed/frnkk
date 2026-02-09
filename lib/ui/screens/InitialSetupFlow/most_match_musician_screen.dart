@@ -58,7 +58,7 @@ class _MostMatchMusicianScreenState extends State<MostMatchMusicianScreen> {
                     ),
                     const Spacer(),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: ()=>Get.back(),
                       child: Text(
                         'Skip',
                         style: TextStyle(
@@ -151,7 +151,6 @@ class _MostMatchMusicianScreenState extends State<MostMatchMusicianScreen> {
                     height: 50.h,
                     child: ElevatedButton(
                       onPressed: () {
-
                         Get.back(result: selectedMusicians.toList());
                       },
                       style: ElevatedButton.styleFrom(

@@ -45,7 +45,7 @@ class _MostMatchsongWriterScreenState extends State<MostMatchsongWriterScreen> {
                   ),
                   const Spacer(),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: ()=>Get.back(),
                     child: Text(
                       'Skip',
                       style: TextStyle(

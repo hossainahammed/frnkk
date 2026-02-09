@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frnkk/ui/screens/Settings/contact_us_screenn.dart';
 import 'package:frnkk/ui/screens/artists_profile/artists_model.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/app_background.dart';
@@ -47,7 +48,8 @@ class GigDetailsView extends StatelessWidget {
               right: 20,
               child: CustomButton(
                 label: "Contact",
-                onPressed: () => print("Contacting ${data['name']}..."),
+                onPressed: () =>Get.to(() => const ContactUsScreen()),
+                // onPressed: () => print("Contacting ${data['name']}..."),
               ),
             ),
           ],

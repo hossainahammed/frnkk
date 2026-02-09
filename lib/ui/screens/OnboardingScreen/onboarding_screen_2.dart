@@ -5,6 +5,7 @@ import 'package:frnkk/ui/screens/InitialSetupFlow/SelectTypeScreen.dart';
 import 'package:frnkk/ui/screens/OnboardingScreen/onboarding3_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OnboardingScreen2 extends StatelessWidget {
   const OnboardingScreen2({super.key});
@@ -45,16 +46,16 @@ class OnboardingScreen2 extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Step',
-                    style: TextStyle(
+                    'Step into ',
+                    style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 32.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   Text(
-                    'Into Your Music world',
-                    style: TextStyle(
+                    'your music world',
+                    style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 32.sp,
                       fontWeight: FontWeight.w700,

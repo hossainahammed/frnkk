@@ -4,6 +4,7 @@ import 'package:frnkk/ui/screens/InitialSetupFlow/most_match_screen.dart';
 import 'package:frnkk/widgets/common_widgets.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ChooseGenreInterestScreen extends StatefulWidget {
   const ChooseGenreInterestScreen({super.key});
@@ -32,21 +33,25 @@ class _ChooseGenreInterestScreenState extends State<ChooseGenreInterestScreen> {
                   children: [
                     Text(
                       'Choose your genre',
-                      style: TextStyle(
+                      style: GoogleFonts.poltawskiNowy(
                         color: Colors.white,
-                        fontSize: 26.sp,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 24.sp,
                       ),
                     ),
                     const Spacer(),
                     GestureDetector(
-                      onTap: () => print("Skip Tapped"),
+                      onTap: () {Get.to(
+                            () => const MostMatchScreen(),
+                        transition: Transition.fade,
+                        duration: const Duration(milliseconds: 300),
+                      );},
                       child: Text(
                         'Skip',
-                        style: TextStyle(
+                        style: GoogleFonts.poltawskiNowy(
                           color: Colors.white,
-                          fontSize: 20.sp,
+                          fontSize: 18.sp,
                           decoration: TextDecoration.underline,
+                          decorationColor: Colors.white,
                         ),
                       ),
                     ),
@@ -81,10 +86,10 @@ class _ChooseGenreInterestScreenState extends State<ChooseGenreInterestScreen> {
                         SizedBox(height: 30.h),
                         Text(
                           "Choose your interest",
-                          style: TextStyle(
+                          style: GoogleFonts.nunitoSans(
                             color: Colors.white,
-                            fontSize: 22.sp,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                         SizedBox(height: 20.h),
@@ -155,46 +160,98 @@ class _ChooseGenreInterestScreenState extends State<ChooseGenreInterestScreen> {
   }
 
   Widget _buildGenreGrid(
-    List<String> list,
-    List<String> selectedList,
-    Function(String) onSelected, {
-    required bool isExpanded,
-  }) {
+      List<String> list,
+      List<String> selectedList,
+      Function(String) onSelected, {
+        required bool isExpanded,
+      }) {
     int displayCount = isExpanded
         ? list.length
         : (list.length > 12 ? 12 : list.length);
     List<String> displayList = list.take(displayCount).toList();
 
-    return GridView.count(
-      crossAxisCount: 4,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      mainAxisSpacing: 10.h,
-      crossAxisSpacing: 10.w,
-      childAspectRatio: 2.8,
+    return Wrap(
+      spacing: 8.w, // Horizontal space between chips
+      runSpacing: 10.h, // Vertical space between lines
       children: displayList.map((item) {
         bool isSelected = selectedList.contains(item);
         return GestureDetector(
           onTap: () => onSelected(item),
-          child: Container(
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.r),
-              border: Border.all(
-                color: isSelected ? Colors.purple : Colors.white24,
+          child: IntrinsicWidth( // Ensures the chip only takes up needed width
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.r),
+                border: Border.all(
+                  color: isSelected ? Colors.purple : Colors.white24,
+                ),
+                color: isSelected
+                    ? Colors.purple.withOpacity(0.2)
+                    : Colors.white12,
               ),
-              color: isSelected
-                  ? Colors.purple.withOpacity(0.2)
-                  : Colors.white12,
-            ),
-            child: Text(
-              item,
-              style: TextStyle(color: Colors.white, fontSize: 11.sp),
-              textAlign: TextAlign.center,
+              child: Text(
+                item,
+                style: GoogleFonts.poltawskiNowy(
+                  color: isSelected ? Colors.white : Colors.white60,
+                  fontSize: 14.sp, // Slightly smaller to fit better on one line
+                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                ),
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
         );
       }).toList(),
     );
   }
+  // Widget _buildGenreGrid(
+  //   List<String> list,
+  //   List<String> selectedList,
+  //   Function(String) onSelected, {
+  //   required bool isExpanded,
+  // }) {
+  //   int displayCount = isExpanded
+  //       ? list.length
+  //       : (list.length > 12 ? 12 : list.length);
+  //   List<String> displayList = list.take(displayCount).toList();
+  //
+  //   return GridView.count(
+  //     crossAxisCount: 4,
+  //     shrinkWrap: true,
+  //     physics: const NeverScrollableScrollPhysics(),
+  //     mainAxisSpacing: 10.h,
+  //     crossAxisSpacing: 10.w,
+  //     childAspectRatio: 2.8,
+  //     children: displayList.map((item) {
+  //       bool isSelected = selectedList.contains(item);
+  //       return GestureDetector(
+  //         onTap: () => onSelected(item),
+  //         child: Container(
+  //           padding: EdgeInsets.all(3),
+  //           alignment: Alignment.center,
+  //           decoration: BoxDecoration(
+  //             borderRadius: BorderRadius.circular(20.r),
+  //             border: Border.all(
+  //               color: isSelected ? Colors.purple : Colors.white24,
+  //             ),
+  //             color: isSelected
+  //                 ? Colors.purple.withOpacity(0.2)
+  //                 : Colors.white12,
+  //           ),
+  //           child: Text(
+  //             item,
+  //             style: GoogleFonts.poltawskiNowy(
+  //               color: Colors.white60,
+  //               fontSize: 16.sp,
+  //               fontWeight: FontWeight.w400,
+  //
+  //             ),
+  //             textAlign: TextAlign.center,
+  //           ),
+  //         ),
+  //       );
+  //     }).toList(),
+  //   );
+  // }
 }

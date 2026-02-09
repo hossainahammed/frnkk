@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:frnkk/routes/app_routes.dart';
 import 'package:frnkk/ui/screens/Settings/profileScreen.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/bottom_navigation_bar/navigation_controller.dart';
@@ -23,23 +24,48 @@ class CustomBottomNav extends GetView<NavigationController> {
           currentIndex: controller.selectedIndex.value,
           // UPDATED: Custom onTap to handle profile navigation
           onTap: (index) {
-            if (index == 4) {
-              // Profile icon tapped (index 4) - Navigate to ProfileScreen
-              Get.to(() => const ProfileScreen());
-            } else if (index == 3) {
-              // For other tabs, use the controller's changeTabIndex
-              //Get.to(() => const ProfileScreen());
-              controller.changeTabIndex(index);
-            }
-            else if (index == 2) {
-              //Get.to(() => const ProfileScreen());
-              controller.changeTabIndex(index);
-
-          }else {
-              // For other tabs, use the controller's changeTabIndex
-              controller.changeTabIndex(index);
-            }
+            // REMOVE Get.toNamed from here.
+            // Just change the index. The IndexedStack in HomeScreen will show the Profile.
+            controller.changeTabIndex(index);
           },
+          // onTap: (index) {
+          //   if (index == 4) {
+          //     Get.toNamed(AppRoutes.profile);
+          //   } else {
+          //     controller.changeTabIndex(index);
+          //   }
+          // },
+          // onTap: (index) {
+          //   if (index == 4) {
+          //     // 1. Change the tab index so index 4 is active in the background
+          //     controller.changeTabIndex(4);
+          //     // 2. Open the full Profile screen on top
+          //     Get.toNamed(AppRoutes.profile);
+          //   } else {
+          //     // For other tabs (0, 1, 2, 3), just switch the tab
+          //     controller.changeTabIndex(index);
+          //   }
+          // },
+          // onTap: (index) {
+          //   if (index == 4) {
+          //     // Profile icon tapped (index 4) - Navigate to ProfileScreen
+          //     //Get.to(() => const ProfileScreen());
+          //     Get.toNamed(AppRoutes.profile);
+          //   }
+          //   else if (index == 3) {
+          //     // For other tabs, use the controller's changeTabIndex
+          //     //Get.to(() => const ProfileScreen());
+          //     controller.changeTabIndex(index);
+          //   }
+          //   else if (index == 2) {
+          //     //Get.to(() => const ProfileScreen());
+          //     controller.changeTabIndex(index);
+          //
+          // }else {
+          //     // For other tabs, use the controller's changeTabIndex
+          //     controller.changeTabIndex(index);
+          //   }
+          // },
           type: BottomNavigationBarType.fixed,
           backgroundColor: Colors.transparent, // Set to transparent
           elevation: 0, // Removes the shadow
