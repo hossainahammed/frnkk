@@ -9,6 +9,7 @@ import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/SingerProfilePortf
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/skills_and_genres_tab_view.dart';
 import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SingerProfileScreen extends StatelessWidget {
   const SingerProfileScreen({super.key});
@@ -18,12 +19,12 @@ class SingerProfileScreen extends StatelessWidget {
     final controller = Get.put(SingerProfileController());
 
     return Scaffold(
-      //backgroundColor: const Color(0xFF080322),
       body: Stack(
         children: [
           AppDecorations.buildFullBackground(),
           CustomScrollView(
             slivers: [
+              // 1. App Bar
               SliverAppBar(
                 expandedHeight: 400.h,
                 pinned: true,
@@ -100,10 +101,15 @@ class SingerProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              // 2. Action Buttons Section
+              // --- ADDED SPACE HERE ---
               SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: SizedBox(height: 24.h), // Adjust this value for more/less space
+              ),
+
+              // 2. Action Buttons Section
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                sliver: SliverToBoxAdapter(
                   child: Column(
                     children: [
                       _buildActionButtons(),
@@ -113,7 +119,7 @@ class SingerProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              // 3. Tab Navigation Section (Full Width)
+              // 3. Tab Navigation Section
               SliverToBoxAdapter(
                 child: _buildTabSection(controller),
               ),
@@ -147,7 +153,6 @@ class SingerProfileScreen extends StatelessWidget {
                         child: const ExperienceTabView(),
                       );
                     } else {
-                      // Default for "Bio"
                       return Column(
                         children: [
                           SizedBox(height: 20.h),
@@ -163,8 +168,7 @@ class SingerProfileScreen extends StatelessWidget {
                 ),
               ),
 
-              // 5. Reactive Album List (Grid or Horizontal)
-              // FIXED: Hidden for both "Skills & Genres" AND "Experience"
+              // 5. Reactive Album List
               Obx(() {
                 if (controller.selectedTab.value == "Skills & Genres" ||
                     controller.selectedTab.value == "Experience") {
@@ -247,10 +251,9 @@ class SingerProfileScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24.r)),
                   ),
                   child: Text("Edit Profile",
-                      style: TextStyle(
+                      style: GoogleFonts.poltawskiNowy(
                           color: Colors.white,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold)),
+                          fontSize: 16)),
                 ),
               ),
             ),
@@ -270,8 +273,7 @@ class SingerProfileScreen extends StatelessWidget {
           width: double.infinity,
           height: 48.h,
           child: OutlinedButton(
-            // onPressed: (){},
-             onPressed: () => Get.to(() => const AddGigScreen()),
+            onPressed: () => Get.to(() => const AddGigScreen()),
             style: OutlinedButton.styleFrom(
               side: const BorderSide(color: Color(0xFFD458FF)),
               shape: RoundedRectangleBorder(
