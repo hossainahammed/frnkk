@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/Model/TransactionModel.dart';
 import 'package:frnkk/controllers/profile_controller.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PaymentHistoryScreen extends StatelessWidget {
   const PaymentHistoryScreen({super.key});
@@ -12,7 +14,8 @@ class PaymentHistoryScreen extends StatelessWidget {
     final controller = Get.find<ProfileController>();
 
     return Scaffold(
-      backgroundColor: const Color(0xFF080322),
+      extendBodyBehindAppBar: true,
+      //backgroundColor: const Color(0xFF080322),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -22,29 +25,45 @@ class PaymentHistoryScreen extends StatelessWidget {
         ),
         title: Text(
           "Payment History",
-          style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w600),
-        ),
-      ),
-      body: Container(
-        width: 1.sw,
-        height: 1.sh,
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.centerRight,
-            radius: 1.5,
-            colors: [Color(0xFF2D0B4D), Color(0xFF080322)],
+          style: GoogleFonts.nunitoSans(
+            color: Colors.white,
+            fontSize: 24.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        child: ListView.separated(
-          padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
-          itemCount: controller.transactions.length,
+      ),
+      body: Stack(
+        children: [
+          AppDecorations.buildFullBackground(),
+          Column(
+            children: [
+              SizedBox(height: AppBar().preferredSize.height + MediaQuery.of(context).padding.top),
+              Expanded(
+                child: Container(
+                  width: 1.sw,
+                  height: 1.sh,
+                  // decoration: const BoxDecoration(
+                  //   gradient: RadialGradient(
+                  //     center: Alignment.centerRight,
+                  //     radius: 1.5,
+                  //     colors: [Color(0xFF2D0B4D), Color(0xFF080322)],
+                  //   ),
+                  // ),
+                  child: ListView.separated(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
+                    itemCount: controller.transactions.length,
 
-            separatorBuilder: (context, index) => SizedBox(height: 16.h),
-          itemBuilder: (context, index) {
-            final item = controller.transactions[index];
-            return _buildTransactionCard(item);
-          },
-        ),
+                      separatorBuilder: (context, index) => SizedBox(height: 16.h),
+                    itemBuilder: (context, index) {
+                      final item = controller.transactions[index];
+                      return _buildTransactionCard(item);
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

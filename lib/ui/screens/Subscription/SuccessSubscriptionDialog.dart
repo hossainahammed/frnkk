@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/routes/app_routes.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SuccessSubscriptionDialog extends StatelessWidget {
   final bool fromMainSwipe;
@@ -83,10 +84,10 @@ class SuccessSubscriptionDialog extends StatelessWidget {
                 },
                 child: Text(
                   "OK",
-                  style: TextStyle(
+                  style: GoogleFonts.poltawskiNowy(
                     color: Colors.white,
                     fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ),

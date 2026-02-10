@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,84 +26,89 @@ class _MostMatchsongWriterScreenState extends State<MostMatchsongWriterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF080322),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 40.h),
-              Row(
+      //backgroundColor: const Color(0xFF080322),
+      body: Stack(
+        children: [
+          AppDecorations.buildFullBackground(),
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: 40.h),
+                  Row(
+                    children: [
+                      Text(
+                        'Song Writer',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: ()=>Get.back(),
+                        child: Text(
+                          'Skip',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.sp,
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: 20.h),
+                  _buildSearchField(),
+                  SizedBox(height: 20.h),
                   Text(
                     'Song Writer',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 26.sp,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: ()=>Get.back(),
-                    child: Text(
-                      'Skip',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.sp,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.white,
+                  SizedBox(height: 15.h),
+                  Expanded(
+                    child: GridView.builder(
+                      padding: EdgeInsets.only(bottom: 10.h),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 15.h,
+                        crossAxisSpacing: 10.w,
+                        childAspectRatio: 0.75,
                       ),
+                      itemCount: writers.length,
+                      itemBuilder: (context, index) {
+                        final bool isSelected = selectedIndices.contains(index);
+                        return GestureDetector(
+                          onTap: () => setState(
+                            () => isSelected
+                                ? selectedIndices.remove(index)
+                                : selectedIndices.add(index),
+                          ),
+                          child: _buildWriterCard(
+                            writers[index]['name']!,
+                            writers[index]['image']!,
+                            isSelected,
+                          ),
+                        );
+                      },
                     ),
                   ),
+                  _buildNextButton(),
+                  SizedBox(height: 20.h),
                 ],
               ),
-
-              SizedBox(height: 20.h),
-              _buildSearchField(),
-              SizedBox(height: 20.h),
-              Text(
-                'Song Writer',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(height: 15.h),
-              Expanded(
-                child: GridView.builder(
-                  padding: EdgeInsets.only(bottom: 10.h),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 15.h,
-                    crossAxisSpacing: 10.w,
-                    childAspectRatio: 0.75,
-                  ),
-                  itemCount: writers.length,
-                  itemBuilder: (context, index) {
-                    final bool isSelected = selectedIndices.contains(index);
-                    return GestureDetector(
-                      onTap: () => setState(
-                        () => isSelected
-                            ? selectedIndices.remove(index)
-                            : selectedIndices.add(index),
-                      ),
-                      child: _buildWriterCard(
-                        writers[index]['name']!,
-                        writers[index]['image']!,
-                        isSelected,
-                      ),
-                    );
-                  },
-                ),
-              ),
-              _buildNextButton(),
-              SizedBox(height: 20.h),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

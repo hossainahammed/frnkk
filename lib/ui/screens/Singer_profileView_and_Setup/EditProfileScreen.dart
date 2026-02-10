@@ -6,6 +6,7 @@ import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/AddPortfolioScreen
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/ExperienceTabView.dart';
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/SingerProfilePortfolioSelfViewScreen.dart';
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/add_skills_genres_screen.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
 
 class EditProfileScreen extends StatelessWidget {
@@ -14,9 +15,10 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF080322),
+      extendBodyBehindAppBar: true,
+      //backgroundColor: const Color(0xFF080322),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -25,16 +27,29 @@ class EditProfileScreen extends StatelessWidget {
         title: Text("Edit Profile",
             style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.bold)),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        child: Column(
-          children: [
-            _buildEditOption("Add Bio", () => Get.to(() => const AddBioScreen())),
-            _buildEditOption("Add Portfolio", () => Get.to(() => const AddPortfolioScreen())),
-            _buildEditOption("Add Skill & Genres", () => Get.to(() => const AddSkillsGenresScreen())),
-            _buildEditOption("Add Experience", () => Get.to(() => const AddExperienceScreen())),
-          ],
-        ),
+      body: Stack(
+        children: [
+          AppDecorations.buildFullBackground(),
+          Column(
+            children: [
+              SizedBox(height: AppBar().preferredSize.height + MediaQuery.of(context).padding.top),
+
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    children: [
+                      _buildEditOption("Add Bio", () => Get.to(() => const AddBioScreen())),
+                      _buildEditOption("Add Portfolio", () => Get.to(() => const AddPortfolioScreen())),
+                      _buildEditOption("Add Skill & Genres", () => Get.to(() => const AddSkillsGenresScreen())),
+                      _buildEditOption("Add Experience", () => Get.to(() => const AddExperienceScreen())),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

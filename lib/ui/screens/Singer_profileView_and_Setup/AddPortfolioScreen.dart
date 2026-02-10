@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
 
 class AddPortfolioScreen extends StatelessWidget {
@@ -8,50 +9,61 @@ class AddPortfolioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFF2D0A4E), Color(0xFF080322)],
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
+      body: Stack(
+        children: [
+          AppDecorations.buildFullBackground(),
+          Column(
             children: [
-              _buildAppBar("Add Portfolio"),
               Expanded(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _buildSectionTitle("Audio"),
-                      _buildTextField("Title *", "The Bleckest Day"),
-                      _buildTextField("Type *", "Classical"),
-                      _buildTextField("Artist Name *", "Classical"),
-                      _buildTextField("Lyrics*", "[Verse 1]\nI stay out too late...", maxLines: 5),
-                      _buildTextField("Artist Name *", ""),
-                      _buildUploadBox(),
+                child: Container(
+                  // decoration: const BoxDecoration(
+                  //   gradient: LinearGradient(
+                  //     begin: Alignment.topCenter,
+                  //     end: Alignment.bottomCenter,
+                  //     colors: [Color(0xFF2D0A4E), Color(0xFF080322)],
+                  //   ),
+                  // ),
+                  child: SafeArea(
+                    child: Column(
+                      children: [
+                        _buildAppBar("Add Portfolio"),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildSectionTitle("Audio"),
+                                _buildTextField("Title *", "The Bleckest Day"),
+                                _buildTextField("Type *", "Classical"),
+                                _buildTextField("Artist Name *", "Classical"),
+                                _buildTextField("Lyrics*", "[Verse 1]\nI stay out too late...", maxLines: 5),
+                                _buildTextField("Artist Name *", ""),
+                                _buildUploadBox(),
 
-                      SizedBox(height: 30.h),
+                                SizedBox(height: 30.h),
 
-                      _buildSectionTitle("Album"),
-                      _buildTextField("Title *", "The Bleckest Day"),
-                      _buildTextField("Type *", "Classical"),
-                      _buildTextField("Artist Name *", "Classical"),
-                      _buildTextField("Artist Name *", "Classical"),
-                      _buildTextField("Artist Name *", "Classical"),
-                      _buildUploadBox(),
+                                _buildSectionTitle("Album"),
+                                _buildTextField("Title *", "The Bleckest Day"),
+                                _buildTextField("Type *", "Classical"),
+                                _buildTextField("Artist Name *", "Classical"),
+                                _buildTextField("Artist Name *", "Classical"),
+                                _buildTextField("Artist Name *", "Classical"),
+                                _buildUploadBox(),
 
-                      SizedBox(height: 100.h), // Space for button
-                    ],
+                                SizedBox(height: 100.h), // Space for button
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-        ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _buildSaveButton(),

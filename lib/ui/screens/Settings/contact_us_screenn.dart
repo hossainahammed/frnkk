@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/controllers/ContactUsController.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class ContactUsScreen extends StatelessWidget {
@@ -12,7 +14,8 @@ class ContactUsScreen extends StatelessWidget {
     final controller = Get.put(ContactUsController());
 
     return Scaffold(
-      backgroundColor: const Color(0xFF080322),
+     // backgroundColor: const Color(0xFF080322),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -22,67 +25,82 @@ class ContactUsScreen extends StatelessWidget {
         ),
         title: Text(
           "Contact Us",
-          style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.w600),
-        ),
-      ),
-      body: Container(
-        height: 1.sh,
-        width: 1.sw,
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.centerRight,
-            radius: 1.5,
-            colors: [Color(0xFF2D0B4D), Color(0xFF080322)],
+          style: GoogleFonts.nunitoSans(
+            color: Colors.white,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
           ),
         ),
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
+      ),
+      body: Stack(
+        children: [
+          AppDecorations.buildFullBackground(),
+          Column(
             children: [
-              SizedBox(height: 30.h),
+              SizedBox(height: AppBar().preferredSize.height + MediaQuery.of(context).padding.top),
+              Expanded(
+                child: Container(
+                  height: 1.sh,
+                  width: 1.sw,
+                  // decoration: const BoxDecoration(
+                  //   gradient: RadialGradient(
+                  //     center: Alignment.centerRight,
+                  //     radius: 1.5,
+                  //     colors: [Color(0xFF2D0B4D), Color(0xFF080322)],
+                  //   ),
+                  // ),
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 30.h),
 
-              // Form Fields
-              _buildContactTextField(hint: "Name", controller: controller.nameController),
-              SizedBox(height: 16.h),
+                        // Form Fields
+                        _buildContactTextField(hint: "Name", controller: controller.nameController),
+                        SizedBox(height: 16.h),
 
-              _buildContactTextField(hint: "Email", controller: controller.emailController),
-              SizedBox(height: 16.h),
+                        _buildContactTextField(hint: "Email", controller: controller.emailController),
+                        SizedBox(height: 16.h),
 
-              _buildContactTextField(hint: "Phone", controller: controller.phoneController),
-              SizedBox(height: 16.h),
+                        _buildContactTextField(hint: "Phone", controller: controller.phoneController),
+                        SizedBox(height: 16.h),
 
-              // Large Message Area
-              _buildContactTextField(
-                hint: "How can we help?",
-                controller: controller.messageController,
-                maxLines: 6,
-              ),
+                        // Large Message Area
+                        _buildContactTextField(
+                          hint: "How can we help?",
+                          controller: controller.messageController,
+                          maxLines: 6,
+                        ),
 
-              SizedBox(height: 40.h),
+                        SizedBox(height: 40.h),
 
-              // Send Button
-              SizedBox(
-                width: double.infinity,
-                height: 56.h,
-                child: ElevatedButton(
-                  onPressed: controller.onSend,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFD458FF),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
-                  ),
-                  child: Text(
-                    "Send",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
+                        // Send Button
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56.h,
+                          child: ElevatedButton(
+                            onPressed: controller.onSend,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFD458FF),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
+                            ),
+                            child: Text(
+                              "Send",
+                              style: GoogleFonts.poltawskiNowy(
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

@@ -7,6 +7,7 @@ import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/ExperienceTabView.
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/ProfilePhotoChangeScreen.dart';
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/SingerProfilePortfolioSelfViewScreen.dart';
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/skills_and_genres_tab_view.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
 
 class SingerProfileScreen extends StatelessWidget {
@@ -17,188 +18,193 @@ class SingerProfileScreen extends StatelessWidget {
     final controller = Get.put(SingerProfileController());
 
     return Scaffold(
-      backgroundColor: const Color(0xFF080322),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 400.h,
-            pinned: true,
-            backgroundColor: const Color(0xFF080322),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Get.back(),
-            ),
-            actions: [
-              Padding(
-                padding: EdgeInsets.only(right: 16.w),
-                child: IconButton(
-                  icon: ImageIcon(
-                    const AssetImage('assets/images/profile_Icon/Vector.png'),
-                    color: const Color(0xFFD458FF),
-                    size: 24.sp,
-                  ),
-                  onPressed: () => Get.to(() => const ProfilePhotoChangeScreen()),
+      //backgroundColor: const Color(0xFF080322),
+      body: Stack(
+        children: [
+          AppDecorations.buildFullBackground(),
+          CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                expandedHeight: 400.h,
+                pinned: true,
+                backgroundColor: const Color(0xFF080322),
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () => Get.back(),
                 ),
-              ),
-            ],
-            flexibleSpace: FlexibleSpaceBar(
-              background: Stack(
-                fit: StackFit.expand,
-                children: [
-                  Image.asset(
-                    'assets/images/SingerProfile.png',
-                    fit: BoxFit.cover,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.transparent,
-                          const Color(0xFF080322).withOpacity(0.9),
-                        ],
+                actions: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 16.w),
+                    child: IconButton(
+                      icon: ImageIcon(
+                        const AssetImage('assets/images/profile_Icon/Vector.png'),
+                        color: const Color(0xFFD458FF),
+                        size: 24.sp,
                       ),
+                      onPressed: () => Get.to(() => const ProfilePhotoChangeScreen()),
                     ),
                   ),
-                  Positioned(
-                    bottom: 20.h,
-                    left: 20.w,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Taylor Swift",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 32.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(width: 10.w),
-                            _buildStatusChip(),
-                          ],
-                        ),
-                        Text(
-                          "100 Connections",
-                          style: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 14.sp,
+                ],
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.asset(
+                        'assets/images/SingerProfile.png',
+                        fit: BoxFit.cover,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              const Color(0xFF080322).withOpacity(0.9),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
+                      Positioned(
+                        bottom: 20.h,
+                        left: 20.w,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  "Taylor Swift",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 32.sp,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(width: 10.w),
+                                _buildStatusChip(),
+                              ],
+                            ),
+                            Text(
+                              "100 Connections",
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 14.sp,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // 2. Action Buttons Section
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Column(
+                    children: [
+                      _buildActionButtons(),
+                      SizedBox(height: 20.h),
+                    ],
+                  ),
+                ),
+              ),
+
+              // 3. Tab Navigation Section (Full Width)
+              SliverToBoxAdapter(
+                child: _buildTabSection(controller),
+              ),
+
+              // 4. MAIN DYNAMIC CONTENT AREA
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Obx(() {
+                    if (controller.selectedTab.value == "Skills & Genres") {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 20.h),
+                        child: SkillsAndGenresTabView(
+                          data: controller.artistData.value,
+                        ),
+                      );
+                    } else if (controller.selectedTab.value == "Portfolio") {
+                      return Column(
+                        children: [
+                          SizedBox(height: 20.h),
+                          _buildLatestRelease(),
+                          SizedBox(height: 20.h),
+                          const PortfolioView(),
+                          SizedBox(height: 20.h),
+                          _buildAlbumHeader(controller),
+                        ],
+                      );
+                    } else if (controller.selectedTab.value == "Experience") {
+                      return Padding(
+                        padding: EdgeInsets.only(top: 20.h),
+                        child: const ExperienceTabView(),
+                      );
+                    } else {
+                      // Default for "Bio"
+                      return Column(
+                        children: [
+                          SizedBox(height: 20.h),
+                          _buildLatestRelease(),
+                          SizedBox(height: 20.h),
+                          _buildAboutSection(controller),
+                          SizedBox(height: 20.h),
+                          _buildAlbumHeader(controller),
+                        ],
+                      );
+                    }
+                  }),
+                ),
+              ),
+
+              // 5. Reactive Album List (Grid or Horizontal)
+              // FIXED: Hidden for both "Skills & Genres" AND "Experience"
+              Obx(() {
+                if (controller.selectedTab.value == "Skills & Genres" ||
+                    controller.selectedTab.value == "Experience") {
+                  return const SliverToBoxAdapter(child: SizedBox.shrink());
+                }
+
+                return controller.isAllAlbumsVisible.value
+                    ? SliverPadding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  sliver: SliverGrid(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisExtent: 230.h,
+                      crossAxisSpacing: 16.w,
+                      mainAxisSpacing: 16.h,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                          (context, index) =>
+                          _buildAlbumCard(controller.albums[index]),
+                      childCount: controller.albums.length,
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-
-          // 2. Action Buttons Section
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                children: [
-                  _buildActionButtons(),
-                  SizedBox(height: 20.h),
-                ],
-              ),
-            ),
-          ),
-
-          // 3. Tab Navigation Section (Full Width)
-          SliverToBoxAdapter(
-            child: _buildTabSection(controller),
-          ),
-
-          // 4. MAIN DYNAMIC CONTENT AREA
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Obx(() {
-                if (controller.selectedTab.value == "Skills & Genres") {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 20.h),
-                    child: SkillsAndGenresTabView(
-                      data: controller.artistData.value,
+                )
+                    : SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: 250.h,
+                    child: ListView.builder(
+                      padding: EdgeInsets.only(left: 20.w, bottom: 20.h),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: controller.albums.length,
+                      itemBuilder: (context, index) =>
+                          _buildAlbumCard(controller.albums[index]),
                     ),
-                  );
-                } else if (controller.selectedTab.value == "Portfolio") {
-                  return Column(
-                    children: [
-                      SizedBox(height: 20.h),
-                      _buildLatestRelease(),
-                      SizedBox(height: 20.h),
-                      const PortfolioView(),
-                      SizedBox(height: 20.h),
-                      _buildAlbumHeader(controller),
-                    ],
-                  );
-                } else if (controller.selectedTab.value == "Experience") {
-                  return Padding(
-                    padding: EdgeInsets.only(top: 20.h),
-                    child: const ExperienceTabView(),
-                  );
-                } else {
-                  // Default for "Bio"
-                  return Column(
-                    children: [
-                      SizedBox(height: 20.h),
-                      _buildLatestRelease(),
-                      SizedBox(height: 20.h),
-                      _buildAboutSection(controller),
-                      SizedBox(height: 20.h),
-                      _buildAlbumHeader(controller),
-                    ],
-                  );
-                }
+                  ),
+                );
               }),
-            ),
+
+              SliverToBoxAdapter(child: SizedBox(height: 40.h)),
+            ],
           ),
-
-          // 5. Reactive Album List (Grid or Horizontal)
-          // FIXED: Hidden for both "Skills & Genres" AND "Experience"
-          Obx(() {
-            if (controller.selectedTab.value == "Skills & Genres" ||
-                controller.selectedTab.value == "Experience") {
-              return const SliverToBoxAdapter(child: SizedBox.shrink());
-            }
-
-            return controller.isAllAlbumsVisible.value
-                ? SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              sliver: SliverGrid(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisExtent: 230.h,
-                  crossAxisSpacing: 16.w,
-                  mainAxisSpacing: 16.h,
-                ),
-                delegate: SliverChildBuilderDelegate(
-                      (context, index) =>
-                      _buildAlbumCard(controller.albums[index]),
-                  childCount: controller.albums.length,
-                ),
-              ),
-            )
-                : SliverToBoxAdapter(
-              child: SizedBox(
-                height: 250.h,
-                child: ListView.builder(
-                  padding: EdgeInsets.only(left: 20.w, bottom: 20.h),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: controller.albums.length,
-                  itemBuilder: (context, index) =>
-                      _buildAlbumCard(controller.albums[index]),
-                ),
-              ),
-            );
-          }),
-
-          SliverToBoxAdapter(child: SizedBox(height: 40.h)),
         ],
       ),
     );

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/controllers/profile_controller.dart';
 import 'package:frnkk/ui/screens/Settings/ProfilePhotoView.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PersonalDataScreen extends StatefulWidget {
   const PersonalDataScreen({super.key});
@@ -28,7 +30,8 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF080322),
+      extendBodyBehindAppBar: true,
+      //backgroundColor: const Color(0xFF080322),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -38,95 +41,113 @@ class _PersonalDataScreenState extends State<PersonalDataScreen> {
         ),
         title: Text(
           "Personal Data",
-          style: TextStyle(color: Colors.white, fontSize: 22.sp, fontWeight: FontWeight.w600),
+            style: GoogleFonts.nunitoSans(
+              color: Colors.white,
+              fontSize: 24.sp,
+            ),
         ),
       ),
-      body: Container(
-        width: 1.sw,
-        height: 1.sh,
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.centerRight,
-            radius: 1.5,
-            colors: [Color(0xFF2D0B4D), Color(0xFF080322)],
-          ),
-        ),
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
+        children: [
+          AppDecorations.buildFullBackground(),
+          Column(
             children: [
-              SizedBox(height: 20.h),
+              SizedBox(height: AppBar().preferredSize.height + MediaQuery.of(context).padding.top),
+              Expanded(
+                child: Container(
+                  width: 1.sw,
+                  height: 1.sh,
+                  // decoration: const BoxDecoration(
+                  //   gradient: RadialGradient(
+                  //     center: Alignment.centerRight,
+                  //     radius: 1.5,
+                  //     colors: [Color(0xFF2D0B4D), Color(0xFF080322)],
+                  //   ),
+                  // ),
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 20.h),
 
-              // Profile Photo Section
-              Center(
-                child: Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 65.r,
-                      backgroundImage: const AssetImage('assets/images/Rectangle.png'),
-                    ),
-                    Positioned(
-                      bottom: 5,
-                      right: 5,
-                      child: GestureDetector(
-                        onTap: () => Get.to(() => const ProfilePhotoView()),
-                        child: Container(
-                          padding: EdgeInsets.all(8.r),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFFF5E5E),
-                            shape: BoxShape.circle,
+                        // Profile Photo Section
+                        Center(
+                          child: Stack(
+                            children: [
+                              CircleAvatar(
+                                radius: 65.r,
+                                backgroundImage: const AssetImage('assets/images/Rectangle.png'),
+                              ),
+                              Positioned(
+                                bottom: 5,
+                                right: 5,
+                                child: GestureDetector(
+                                  onTap: () => Get.to(() => const ProfilePhotoView()),
+                                  child: Container(
+                                    padding: EdgeInsets.all(8.r),
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xFFFF5E5E),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: ImageIcon(AssetImage('assets/images/profile_Icon/Vector.png'),color: Colors.white, size: 24.sp),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          child: ImageIcon(AssetImage('assets/images/profile_Icon/Vector.png'),color: Colors.white, size: 24.sp),
                         ),
-                      ),
+
+                        SizedBox(height: 40.h),
+
+                        // Form Fields
+                        _buildLabel("Name"),
+                        _buildTextField(nameController),
+
+                        SizedBox(height: 25.h),
+                        _buildLabel("Email"),
+                        _buildTextField(emailController),
+
+                        SizedBox(height: 25.h),
+                        _buildLabel("Date of Birth"),
+                        _buildTextField(dobController, isDate: true),
+
+                        SizedBox(height: 25.h),
+                        _buildLabel("Country"),
+                        _buildDropdownField(),
+
+                        SizedBox(height: 50.h),
+
+                        // Save Button
+                        SizedBox(
+                          width: double.infinity,
+                          height: 56.h,
+                          child: ElevatedButton(
+                            onPressed: () => controller.updatePersonalInfo(
+                              name: nameController.text,
+                              email: emailController.text,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFFD458FF),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
+                            ),
+                            child: Text(
+                              "Save",
+                                style: GoogleFonts.poltawskiNowy(
+                                  color: Colors.white,
+                                  fontSize: 16.sp,
+                                ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-
-              SizedBox(height: 40.h),
-
-              // Form Fields
-              _buildLabel("Name"),
-              _buildTextField(nameController),
-
-              SizedBox(height: 25.h),
-              _buildLabel("Email"),
-              _buildTextField(emailController),
-
-              SizedBox(height: 25.h),
-              _buildLabel("Date of Birth"),
-              _buildTextField(dobController, isDate: true),
-
-              SizedBox(height: 25.h),
-              _buildLabel("Country"),
-              _buildDropdownField(),
-
-              SizedBox(height: 50.h),
-
-              // Save Button
-              SizedBox(
-                width: double.infinity,
-                height: 56.h,
-                child: ElevatedButton(
-                  onPressed: () => controller.updatePersonalInfo(
-                    name: nameController.text,
-                    email: emailController.text,
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFD458FF),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
-                  ),
-                  child: Text(
-                    "Save",
-                    style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
             ],
           ),
-        ),
+        ],
       ),
     );
   }

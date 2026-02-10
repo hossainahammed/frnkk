@@ -125,7 +125,8 @@ class _MostMatchScreenState extends State<MostMatchScreen> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 30.h, top: 10.h),
                     child: nextButton('Get Started', () {
-                      Get.to(() => const HomeScreen(), transition: Transition.fade);
+                     // Get.to(() => const HomeScreen(), transition: Transition.fade);
+                      Get.offAll(() => const HomeScreen(), transition: Transition.fade);
                     }),
                   ),
                 ],

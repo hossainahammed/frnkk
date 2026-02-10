@@ -5,6 +5,7 @@ import 'package:frnkk/routes/app_routes.dart';
 import 'package:frnkk/ui/screens/Settings/profileScreen.dart';
 import 'package:frnkk/ui/screens/Subscription/SuccessSubscriptionDialog.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PaymentSummaryScreen extends StatelessWidget {
   final String planType;
@@ -32,9 +33,9 @@ class PaymentSummaryScreen extends StatelessWidget {
         ),
         title: Text(
           "Payment Summary",
-          style: TextStyle(
+          style: GoogleFonts.nunitoSans(
             color: Colors.white,
-            fontSize: 22.sp,
+            fontSize: 24.sp,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -222,7 +223,11 @@ class PaymentSummaryScreen extends StatelessWidget {
         },
         child: Text(
           "Confirm Payment",
-          style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold),
+            style: GoogleFonts.poltawskiNowy(
+              color: Colors.white,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w700,
+            ),
         ),
       ),
     );
@@ -230,6 +235,6 @@ class PaymentSummaryScreen extends StatelessWidget {
 
 }
 
-/// Success Dialog
+
 
 

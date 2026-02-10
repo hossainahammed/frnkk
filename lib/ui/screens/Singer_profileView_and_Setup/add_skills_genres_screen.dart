@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/controllers/singer_profile_controller.dart';
 
@@ -11,7 +12,8 @@ class AddSkillsGenresScreen extends StatelessWidget {
     final controller = Get.find<SingerProfileController>();
 
     return Scaffold(
-      backgroundColor: const Color(0xFF080322),
+      extendBodyBehindAppBar: true,
+      //backgroundColor: const Color(0xFF080322),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -24,94 +26,106 @@ class AddSkillsGenresScreen extends StatelessWidget {
           style: TextStyle(color: Colors.white, fontSize: 24.sp, fontWeight: FontWeight.bold),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(20.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // --- Language Section ---
-            _buildEditSection(
-              title: "Language",
-              child: Column(
-                children: [
-                  _buildInputField("Title *", "e.g. English", controller.newLanguageController),
-                  SizedBox(height: 15.h),
-                  _buildInputField(
-                    "Level *",
-                    "e.g. 90%",
-                    controller.newLevelController,
-                    onAdd: () => controller.addLanguage(), // Triggers the save logic
+      body: Stack(
+        children: [
+          AppDecorations.buildFullBackground(),
+          Column(
+            children: [
+              SizedBox(height: AppBar().preferredSize.height + MediaQuery.of(context).padding.top),
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.all(20.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // --- Language Section ---
+                      _buildEditSection(
+                        title: "Language",
+                        child: Column(
+                          children: [
+                            _buildInputField("Title *", "e.g. English", controller.newLanguageController),
+                            SizedBox(height: 15.h),
+                            _buildInputField(
+                              "Level *",
+                              "e.g. 90%",
+                              controller.newLevelController,
+                              onAdd: () => controller.addLanguage(), // Triggers the save logic
+                            ),
+                            SizedBox(height: 15.h),
+                            Obx(() => _buildRemovableTags(
+                              controller.artistData.value.languages.map((e) => e['name'] as String).toList(),
+                                  (val) => controller.removeLanguage(val),
+                            )),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(height: 25.h),
+
+                      // --- Skill Section ---
+                      _buildEditSection(
+                        title: "Skill",
+                        child: Column(
+                          children: [
+                            _buildInputField(
+                              "Title *",
+                              "Vocalist",
+                              controller.newSkillController,
+                              onAdd: () => controller.addSkill(controller.newSkillController.text),
+                            ),
+                            SizedBox(height: 15.h),
+                            Obx(() => _buildRemovableTags(
+                              controller.artistData.value.skills,
+                                  (val) => controller.removeSkill(val),
+                            )),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(height: 25.h),
+
+                      // --- Genres Section ---
+                      _buildEditSection(
+                        title: "Genres",
+                        child: Column(
+                          children: [
+                            _buildInputField(
+                              "Title *",
+                              "Rock",
+                              controller.newGenreController,
+                              onAdd: () => controller.addGenre(controller.newGenreController.text),
+                            ),
+                            SizedBox(height: 15.h),
+                            Obx(() => _buildRemovableTags(
+                              controller.artistData.value.genres,
+                                  (val) => controller.removeGenre(val),
+                            )),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(height: 40.h),
+
+                      // --- Save Button ---
+                      SizedBox(
+                        width: double.infinity,
+                        height: 56.h,
+                        child: ElevatedButton(
+                          onPressed: () => Get.back(),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFD458FF),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
+                          ),
+                          child: Text("Save", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.white)),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 15.h),
-                  Obx(() => _buildRemovableTags(
-                    controller.artistData.value.languages.map((e) => e['name'] as String).toList(),
-                        (val) => controller.removeLanguage(val),
-                  )),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 25.h),
-
-            // --- Skill Section ---
-            _buildEditSection(
-              title: "Skill",
-              child: Column(
-                children: [
-                  _buildInputField(
-                    "Title *",
-                    "Vocalist",
-                    controller.newSkillController,
-                    onAdd: () => controller.addSkill(controller.newSkillController.text),
-                  ),
-                  SizedBox(height: 15.h),
-                  Obx(() => _buildRemovableTags(
-                    controller.artistData.value.skills,
-                        (val) => controller.removeSkill(val),
-                  )),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 25.h),
-
-            // --- Genres Section ---
-            _buildEditSection(
-              title: "Genres",
-              child: Column(
-                children: [
-                  _buildInputField(
-                    "Title *",
-                    "Rock",
-                    controller.newGenreController,
-                    onAdd: () => controller.addGenre(controller.newGenreController.text),
-                  ),
-                  SizedBox(height: 15.h),
-                  Obx(() => _buildRemovableTags(
-                    controller.artistData.value.genres,
-                        (val) => controller.removeGenre(val),
-                  )),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 40.h),
-
-            // --- Save Button ---
-            SizedBox(
-              width: double.infinity,
-              height: 56.h,
-              child: ElevatedButton(
-                onPressed: () => Get.back(),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFD458FF),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
                 ),
-                child: Text("Save", style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold, color: Colors.white)),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

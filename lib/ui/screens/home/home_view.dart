@@ -20,58 +20,72 @@ class HomeScreen extends GetView<NavigationController> {
   Widget build(BuildContext context) {
     Get.put(HomeController());
     Get.put(ProfileController());
-    return Scaffold(
-      key: scaffoldKey,
-      drawer: const CustomAppDrawer(),
-      extendBodyBehindAppBar: true,
-      extendBody: true,
-      // We use Obx here to listen to the NavigationController index
-      body: AppBackground(
-        child: Obx(() => IndexedStack(
-          index: controller.selectedIndex.value,
-          children: [
-            const MainSwipePage(),    // Index 0
-            const MatchRequestPage(), // Index 1
-            const ExplorePage(),      // Index 2
-            _buildPlaceholder("Message Page"), // Index 3
-            const ProfileScreen(),    // Index 4
-            // REMOVED the SizedBox.shrink() from here
-          ],
-        )),
+    return PopScope(
+      canPop: false, // Prevents exiting the app directly
+      onPopInvoked: (didPop) {
+        if (didPop) return;
+
+        // If user is on any tab other than Home (0), go back to Home
+        if (controller.selectedIndex.value != 0) {
+          controller.changeTabIndex(0);
+        } else {
+          // If they are already on Home, you could show an exit dialog
+          // or allow the pop
+        }
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        drawer: const CustomAppDrawer(),
+        extendBodyBehindAppBar: true,
+        extendBody: true,
+        // We use Obx here to listen to the NavigationController index
+        body: AppBackground(
+          child: Obx(() => IndexedStack(
+            index: controller.selectedIndex.value,
+            children: [
+              const MainSwipePage(),    // Index 0
+              const MatchRequestPage(), // Index 1
+              const ExplorePage(),      // Index 2
+              _buildPlaceholder("Message Page"), // Index 3
+              const ProfileScreen(),    // Index 4
+              // REMOVED the SizedBox.shrink() from here
+            ],
+          )),
+        ),
+        // body: AppBackground(
+        //   child: Obx(() => IndexedStack(
+        //     index: controller.selectedIndex.value,
+        //     children: [
+        //       const MainSwipePage(),
+        //       const MatchRequestPage(),
+        //       const ExplorePage(),
+        //       _buildPlaceholder("Message Page"),
+        //       const ProfileScreen(), // Replace the placeholder with the actual screen
+        //       const SizedBox.shrink(),
+        //     ],
+        //   )),
+        // ),
+        // body: AppBackground(
+        //   child: Obx(() => IndexedStack(
+        //     index: controller.selectedIndex.value,
+        //     children: [
+        //       const MainSwipePage(),
+        //       const MatchRequestPage(),
+        //       const ExplorePage(),
+        //       _buildPlaceholder("Message Page"),
+        //       _buildPlaceholder("Profile Page"),
+        //     ],
+        //   )),
+        // ),
+        // bottomNavigationBar: const CustomBottomNav(),
+        // home_view.dart
+        bottomNavigationBar: Obx(() {
+          // If index is 4 (Profile), return an empty box. Otherwise, show the Nav.
+          return controller.selectedIndex.value == 4
+              ? const SizedBox.shrink()
+              : const CustomBottomNav();
+        }),
       ),
-      // body: AppBackground(
-      //   child: Obx(() => IndexedStack(
-      //     index: controller.selectedIndex.value,
-      //     children: [
-      //       const MainSwipePage(),
-      //       const MatchRequestPage(),
-      //       const ExplorePage(),
-      //       _buildPlaceholder("Message Page"),
-      //       const ProfileScreen(), // Replace the placeholder with the actual screen
-      //       const SizedBox.shrink(),
-      //     ],
-      //   )),
-      // ),
-      // body: AppBackground(
-      //   child: Obx(() => IndexedStack(
-      //     index: controller.selectedIndex.value,
-      //     children: [
-      //       const MainSwipePage(),
-      //       const MatchRequestPage(),
-      //       const ExplorePage(),
-      //       _buildPlaceholder("Message Page"),
-      //       _buildPlaceholder("Profile Page"),
-      //     ],
-      //   )),
-      // ),
-      // bottomNavigationBar: const CustomBottomNav(),
-      // home_view.dart
-      bottomNavigationBar: Obx(() {
-        // If index is 4 (Profile), return an empty box. Otherwise, show the Nav.
-        return controller.selectedIndex.value == 4
-            ? const SizedBox.shrink()
-            : const CustomBottomNav();
-      }),
     );
   }
 

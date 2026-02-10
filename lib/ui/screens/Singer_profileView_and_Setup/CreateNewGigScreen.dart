@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/controllers/GigController.dart';
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/GigDetailsScreen.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
 
 class CreateNewGigScreen extends StatelessWidget {
@@ -15,108 +16,113 @@ class CreateNewGigScreen extends StatelessWidget {
     final controller = Get.find<GigController>();
 
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFF2D0A4E), Color(0xFF080322)],
-          ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              // In the AppBar title
-              Obx(() => Text(
-                  controller.editingIndex.value == -1 ? "Create New Gig" : "Edit Gig",
-                  style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.bold)
-              )),
+      body: Stack(
+        children: [
+          AppDecorations.buildFullBackground(),
+          Container(
+            // decoration: const BoxDecoration(
+            //   gradient: LinearGradient(
+            //     begin: Alignment.topCenter,
+            //     end: Alignment.bottomCenter,
+            //     colors: [Color(0xFF2D0A4E), Color(0xFF080322)],
+            //   ),
+            // ),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  // In the AppBar title
+                  Obx(() => Text(
+                      controller.editingIndex.value == -1 ? "Create New Gig" : "Edit Gig",
+                      style: TextStyle(color: Colors.white, fontSize: 20.sp, fontWeight: FontWeight.bold)
+                  )),
 
-// In the Publish Button
-              Obx(() => Text(
-                  controller.editingIndex.value == -1 ? "Published" : "Update Gig",
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
-              )),
-            //  _buildAppBar("Create New Gig"),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Designation",
-                          style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold)),
-                      SizedBox(height: 12.h),
+          // In the Publish Button
+                  Obx(() => Text(
+                      controller.editingIndex.value == -1 ? "Published" : "Update Gig",
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
+                  )),
+                //  _buildAppBar("Create New Gig"),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Designation",
+                              style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold)),
+                          SizedBox(height: 12.h),
 
-                      // Card 1: Main Info
-                      _buildFormCard([
-                        _buildLabel("Title *"),
-                        _buildTextField(controller.titleController, "The Bleckest Day"),
-                        _buildLabel("Name *"),
-                        _buildTextField(controller.nameController, "Classical"),
-                        _buildLabel("Location *"),
-                        _buildTextField(controller.locationController, "Classical"),
+                          // Card 1: Main Info
+                          _buildFormCard([
+                            _buildLabel("Title *"),
+                            _buildTextField(controller.titleController, "The Bleckest Day"),
+                            _buildLabel("Name *"),
+                            _buildTextField(controller.nameController, "Classical"),
+                            _buildLabel("Location *"),
+                            _buildTextField(controller.locationController, "Classical"),
 
-                        _buildLabel("Skills*"),
-                        TextField(
-                          controller: controller.skillInputController,
-                          onSubmitted: (val) => controller.addSkill(val),
-                          style: const TextStyle(color: Colors.white),
-                          decoration: _inputStyle("Add skill and press enter"),
-                        ),
-                        SizedBox(height: 10.h),
-                        Obx(() => Wrap(
-                          spacing: 8.w,
-                          runSpacing: 8.h,
-                          children: controller.skills.map((skill) =>
-                              _buildSkillChip(skill, () => controller.removeSkill(skill))).toList(),
-                        )),
+                            _buildLabel("Skills*"),
+                            TextField(
+                              controller: controller.skillInputController,
+                              onSubmitted: (val) => controller.addSkill(val),
+                              style: const TextStyle(color: Colors.white),
+                              decoration: _inputStyle("Add skill and press enter"),
+                            ),
+                            SizedBox(height: 10.h),
+                            Obx(() => Wrap(
+                              spacing: 8.w,
+                              runSpacing: 8.h,
+                              children: controller.skills.map((skill) =>
+                                  _buildSkillChip(skill, () => controller.removeSkill(skill))).toList(),
+                            )),
 
-                        SizedBox(height: 20.h),
-                        _buildLabel("Event Type*"),
-                        Row(
-                          children: [
-                            _buildSmallInput(controller.eventTypeInputController, "Party"),
-                            SizedBox(width: 8.w),
-                            _buildSmallInput(controller.eventPriceInputController, "300 \$"),
-                            SizedBox(width: 8.w),
-                            _buildAddButton(() => controller.addEventType()),
-                          ],
-                        ),
-                        SizedBox(height: 10.h),
-                        Obx(() => Wrap(
-                          spacing: 8.w,
-                          children: controller.eventTypes.asMap().entries.map((e) =>
-                              _buildEventChip("${e.value['type']} ${e.value['price']}",
-                                      () => controller.removeEventType(e.key))
-                          ).toList(),
-                        )),
-                      ]),
+                            SizedBox(height: 20.h),
+                            _buildLabel("Event Type*"),
+                            Row(
+                              children: [
+                                _buildSmallInput(controller.eventTypeInputController, "Party"),
+                                SizedBox(width: 8.w),
+                                _buildSmallInput(controller.eventPriceInputController, "300 \$"),
+                                SizedBox(width: 8.w),
+                                _buildAddButton(() => controller.addEventType()),
+                              ],
+                            ),
+                            SizedBox(height: 10.h),
+                            Obx(() => Wrap(
+                              spacing: 8.w,
+                              children: controller.eventTypes.asMap().entries.map((e) =>
+                                  _buildEventChip("${e.value['type']} ${e.value['price']}",
+                                          () => controller.removeEventType(e.key))
+                              ).toList(),
+                            )),
+                          ]),
 
-                      SizedBox(height: 20.h),
+                          SizedBox(height: 20.h),
 
-                      // Card 2: Included & Excluded (NOW FULLY BINDED)
-                      _buildFormCard([
-                        _buildLabel("Included *"),
-                        _buildTextField(controller.includedController, "What's included in your gig?", maxLines: 4),
-                        _buildLabel("Excluded *"),
-                        _buildTextField(controller.excludedController, "What's not included?", maxLines: 4),
-                      ]),
+                          // Card 2: Included & Excluded (NOW FULLY BINDED)
+                          _buildFormCard([
+                            _buildLabel("Included *"),
+                            _buildTextField(controller.includedController, "What's included in your gig?", maxLines: 4),
+                            _buildLabel("Excluded *"),
+                            _buildTextField(controller.excludedController, "What's not included?", maxLines: 4),
+                          ]),
 
-                      SizedBox(height: 20.h),
-                      _buildLabel("Gig Image *"),
-                      GestureDetector(
-                        onTap: () => controller.pickImage(),
-                        child: Obx(() => _buildUploadBox(controller.selectedImagePath.value)),
+                          SizedBox(height: 20.h),
+                          _buildLabel("Gig Image *"),
+                          GestureDetector(
+                            onTap: () => controller.pickImage(),
+                            child: Obx(() => _buildUploadBox(controller.selectedImagePath.value)),
+                          ),
+                          SizedBox(height: 100.h),
+                        ],
                       ),
-                      SizedBox(height: 100.h),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _buildPublishButton(() {

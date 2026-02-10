@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:frnkk/ui/screens/Subscription/SubscriptionDetailScreen.dart';
+import 'package:frnkk/utils/app_themes.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SubscriptionScreen extends StatefulWidget {
   const SubscriptionScreen({super.key});
@@ -17,7 +19,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF080322),
+      //backgroundColor: const Color(0xFF080322),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -27,76 +29,81 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
         ),
       ),
       extendBodyBehindAppBar: true,
-      body: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            center: Alignment.centerRight,
-            radius: 1.5,
-            colors: [Color(0xFF2D0B4D), Color(0xFF080322)],
-          ),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
-          child: Column(
-            children: [
-              SizedBox(height: 80.h),
-              Text(
-                'Subscription',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 32.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 12.h),
-              Text(
-                'Unlock the most powerful Music\nNetwork assistant',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 16.sp,
-                  height: 1.5,
-                ),
-              ),
-              SizedBox(height: 40.h),
-              /// FEATURES BOX
-              _buildFeaturesBox(),
-
-              SizedBox(height: 40.h),
-              /// PLAN SELECTION (Equal Height Cards)
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
+        children: [
+          AppDecorations.buildFullBackground(),
+          Container(
+            width: double.infinity,
+            // decoration: const BoxDecoration(
+            //   gradient: RadialGradient(
+            //     center: Alignment.centerRight,
+            //     radius: 1.5,
+            //     colors: [Color(0xFF2D0B4D), Color(0xFF080322)],
+            //   ),
+            // ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
+              child: Column(
                 children: [
-                  Expanded(
-                    child: _buildPlanCard(
-                      index: 0,
-                      title: "Monthly",
-                      price: "\$20.00",
-                      footer: "Billed Monthly",
+                  SizedBox(height: 80.h),
+                  Text(
+                    'Subscription',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 32.sp,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 16.w),
-                  Expanded(
-                    child: _buildPlanCard(
-                      index: 1,
-                      title: "Yearly",
-                      price: "\$200.00",
-                      footer: "Free 1 Week Trial",
-                      hasDiscount: true,
+                  SizedBox(height: 12.h),
+                  Text(
+                    'Unlock the most powerful Music\nNetwork assistant',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 16.sp,
+                      height: 1.5,
                     ),
                   ),
+                  SizedBox(height: 40.h),
+                  /// FEATURES BOX
+                  _buildFeaturesBox(),
+
+                  SizedBox(height: 40.h),
+                  /// PLAN SELECTION (Equal Height Cards)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: _buildPlanCard(
+                          index: 0,
+                          title: "Monthly",
+                          price: "\$20.00",
+                          footer: "Billed Monthly",
+                        ),
+                      ),
+                      SizedBox(width: 16.w),
+                      Expanded(
+                        child: _buildPlanCard(
+                          index: 1,
+                          title: "Yearly",
+                          price: "\$200.00",
+                          footer: "Free 1 Week Trial",
+                          hasDiscount: true,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 40.h),
+                  /// const Spacer(),
+
+                  /// CONTINUE BUTTON
+                  _buildContinueButton(),
+                  SizedBox(height: 50.h),
                 ],
               ),
-              SizedBox(height: 40.h),
-              /// const Spacer(),
-
-              /// CONTINUE BUTTON
-              _buildContinueButton(),
-              SizedBox(height: 50.h),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -355,10 +362,10 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
         ),
         child: Text(
           "Continue – ${selectedPlan == 0 ? '\$20.00' : '\$200.00'} total",
-          style: TextStyle(
+          style: GoogleFonts.poltawskiNowy(
             color: Colors.white,
             fontSize: 18.sp,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w700,
           ),
         ),
       ),
