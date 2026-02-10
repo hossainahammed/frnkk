@@ -117,6 +117,10 @@ class AppPages {
 
     ),
     GetPage(name: AppRoutes.message, page: () => const MessageSettingScreen()),
+     GetPage(name: AppRoutes.artist_profile, page: () => const ArtistProfileView(),
+      binding: BindingsBuilder(() {
+        Get.lazyPut(() => ArtistProfileController());
+      }),),
 
 
   ];

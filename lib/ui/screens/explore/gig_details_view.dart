@@ -47,7 +47,7 @@ class GigDetailsView extends StatelessWidget {
               left: 20,
               right: 20,
               child: CustomButton(
-                label: "Contact",
+                label: "Message",
                 onPressed: () =>Get.to(() => const ContactUsScreen()),
                 // onPressed: () => print("Contacting ${data['name']}..."),
               ),

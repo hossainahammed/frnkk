@@ -21,6 +21,8 @@ class AppRoutes {
   static const artists = '/artists';
    static const chat = '/chat';
    static const message = '/message-settings';
+   static const artist_profile = '/artist-profile';
+
 
  // static const explore = '/explore';
   // static const message = '/message';
