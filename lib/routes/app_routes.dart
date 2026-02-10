@@ -19,7 +19,10 @@ class AppRoutes {
   static const match = '/match';
   static const profile = '/profile';
   static const artists = '/artists';
-  // static const explore = '/explore';
+   static const chat = '/chat';
+   static const message = '/message-settings';
+
+ // static const explore = '/explore';
   // static const message = '/message';
 
   

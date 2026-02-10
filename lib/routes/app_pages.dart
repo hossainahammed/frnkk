@@ -18,6 +18,9 @@ import 'package:frnkk/ui/screens/home/home_controller.dart';
 import 'package:frnkk/ui/screens/home/home_view.dart';
 import 'package:frnkk/ui/screens/login/login_controller.dart';
 import 'package:frnkk/ui/screens/login/login_view.dart';
+import 'package:frnkk/ui/screens/messasge/chat_controller.dart';
+import 'package:frnkk/ui/screens/messasge/chat_view.dart';
+import 'package:frnkk/ui/screens/messasge/message_settings_view.dart';
 import 'package:frnkk/ui/screens/otp/otp_controller.dart';
 import 'package:frnkk/ui/screens/otp/otp_view.dart';
 import 'package:frnkk/ui/screens/signup/signup_controller.dart';
@@ -105,6 +108,16 @@ class AppPages {
         Get.lazyPut(() => ProfileController());
       }),
     ),
+    GetPage(
+      name: AppRoutes.chat,
+      page: () => const ChatScreen(),
+      binding: BindingsBuilder(() {
+       Get.lazyPut(() => ChatController());
+     }),
+
+    ),
+    GetPage(name: AppRoutes.message, page: () => const MessageSettingScreen()),
+
 
   ];
 }

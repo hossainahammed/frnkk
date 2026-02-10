@@ -14,12 +14,12 @@ class LoginScreen extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      iconTheme: const IconThemeData(color: Colors.white), // Makes the auto-button white
-    ),
+      // extendBodyBehindAppBar: true,
+    //   appBar: AppBar(
+    //   backgroundColor: Colors.transparent,
+    //   elevation: 0,
+    //   iconTheme: const IconThemeData(color: Colors.white), // Makes the auto-button white
+    // ),
       body: AppBackground(
         child: SafeArea(
           // LayoutBuilder gives us the constraints of the screen

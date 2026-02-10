@@ -97,9 +97,9 @@ class OnboardingScreen extends StatelessWidget {
                             padding: EdgeInsets.only(left: 67.w, right: 10.w, top: 10.h, bottom: 10.h),
                             child: Text(
                               'Next',
-                              style: TextStyle(
+                              style: GoogleFonts.poltawskiNowy(
                                 color: Colors.white,
-                                fontSize: 24.sp,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -112,7 +112,7 @@ class OnboardingScreen extends StatelessWidget {
                         height: 48.h,
                         width: 48.w,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFD652E1).withOpacity(0.7),
+                          color: const Color(0xFFD652E1).withOpacity(0.9),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(

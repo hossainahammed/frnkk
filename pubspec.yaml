@@ -20,8 +20,11 @@ dependencies:
   google_fonts: ^8.0.0
   flutter_screenutil: ^5.9.3
   device_preview: ^1.1.0
-  image_picker: ^1.2.1
   flutter_card_swiper: ^7.2.0
+  image_picker: ^1.0.7
+  file_picker: ^8.0.0
+  get_thumbnail_video: ^0.7.3
+  video_player: ^2.10.1
 
 
   cupertino_icons: ^1.0.8
@@ -54,5 +57,6 @@ flutter:
    - assets/images/album_images/
    - assets/images/drawer_image/
    - assets/images/notifications_images/
+   - assets/images/message_icons/
 
 

@@ -5,6 +5,7 @@ import 'package:frnkk/ui/screens/explore/explore_view.dart';
 import 'package:frnkk/ui/screens/home/home_controller.dart';
 import 'package:frnkk/ui/screens/home/main_swipe_page.dart';
 import 'package:frnkk/ui/screens/match/match_request_view.dart';
+import 'package:frnkk/ui/screens/messasge/message_list_view.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/app_background.dart';
 import 'package:frnkk/widgets/bottom_navigation_bar/navigation_controller.dart';
@@ -45,8 +46,9 @@ class HomeScreen extends GetView<NavigationController> {
             children: [
               const MainSwipePage(),    // Index 0
               const MatchRequestPage(), // Index 1
-              const ExplorePage(),      // Index 2
-              _buildPlaceholder("Message Page"), // Index 3
+              const ExplorePage(),
+              const MessageListScreen(),// Index 2
+             // _buildPlaceholder("Message Page"), // Index 3
               const ProfileScreen(),    // Index 4
               // REMOVED the SizedBox.shrink() from here
             ],
