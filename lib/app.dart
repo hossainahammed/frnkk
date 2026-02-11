@@ -20,7 +20,7 @@ class frnkApp extends StatelessWidget {
           initialRoute: AppRoutes.onboarding,
           getPages: AppPages.pages,
           theme: ThemeData(
-            brightness: Brightness.dark,
+            brightness: Brightness.light,
            // fontFamily: 'Georgia',
           ),
         );
