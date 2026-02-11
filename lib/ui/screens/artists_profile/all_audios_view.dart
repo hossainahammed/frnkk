@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frnkk/ui/screens/artists_profile/song_player_view.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/app_background.dart';
-
-import 'artists_model.dart'; // Ensure this import exists
+import 'package:google_fonts/google_fonts.dart';
+import 'artists_model.dart';
 
 class AllAudioView extends StatelessWidget {
   final Artist data;
@@ -22,7 +22,11 @@ class AllAudioView extends StatelessWidget {
           scrolledUnderElevation: 0,
           title: const Text(
             "All Audio",
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: GoogleFonts.poltawskiNowy(
+              color: Colors.white,
+              fontSize: 26.sp,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
