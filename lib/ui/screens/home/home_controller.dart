@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class HomeController extends GetxController {
   final CardSwiperController swiperController = CardSwiperController();
+  var searchQuery = ''.obs;
 
   // Update this list so it is NOT empty
   final List<Map<String, dynamic>> profiles = [
@@ -22,7 +23,22 @@ class HomeController extends GetxController {
       "image": "assets/images/home_images/TaylorSwift.png",
       "genres": ["Jazz", "Blues"],
     },
-  ].obs; // Adding .obs makes the list reactive
+  ].obs;
+  
+  
+  List<Map<String, dynamic>> get filteredProfiles {
+    if (searchQuery.value.isEmpty) {
+      return profiles;
+    }
+    return profiles.where((profile) {
+      final name = profile['name'].toString().toLowerCase();
+      final role = profile['role'].toString().toLowerCase();
+      final query = searchQuery.value.toLowerCase();
+      return name.contains(query) || role.contains(query);
+    }).toList();
+  }
+
+
 
   bool onSwipe(
     int previousIndex,

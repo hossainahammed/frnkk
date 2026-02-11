@@ -336,6 +336,32 @@ class _MainSwipePageState extends State<MainSwipePage> {
               ],
             ),
           ),
+
+          Container(
+            height: 45,
+            width: 370,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: TextField(
+              onChanged: (value) {
+                controller.searchQuery.value = value; // Trigger the filter
+                setState(
+                  () => _activeCardIndex = 0,
+                ); // Reset index to the first found card
+              },
+              style: const TextStyle(color: Colors.white, fontSize: 14),
+              decoration: const InputDecoration(
+                hintText: "Search",
+                hintStyle: TextStyle(color: Colors.white38),
+                prefixIcon: Icon(Icons.search, color: Colors.white38, size: 20),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.symmetric(vertical: 10),
+              ),
+            ),
+          ),
+
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(15.0),
@@ -515,17 +541,13 @@ class _MainSwipePageState extends State<MainSwipePage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _actionCircle(
-          Icons.close,
-          Colors.red,
-          () { 
-          controller.swiperController.swipe(CardSwiperDirection.left);}
-        ),
+        _actionCircle(Icons.close, Colors.red, () {
+          controller.swiperController.swipe(CardSwiperDirection.left);
+        }),
         _actionCircle(Icons.favorite, Colors.red, () {
           // 1. Get the profile currently being displayed
           final currentProfile = controller.profiles[_activeCardIndex];
           _showMatchRequestSheet(currentProfile);
-
         }),
         _actionCircle(
           Icons.near_me,
