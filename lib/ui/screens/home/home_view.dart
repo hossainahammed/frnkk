@@ -12,10 +12,10 @@ import 'package:frnkk/widgets/bottom_navigation_bar/navigation_controller.dart';
 import 'package:frnkk/widgets/bottom_navigation_bar/custom_bottom_nav.dart';
 import 'package:frnkk/widgets/custom_drawer.dart';
 
-
 class HomeScreen extends GetView<NavigationController> {
   const HomeScreen({super.key});
-  static final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  static final GlobalKey<ScaffoldState> scaffoldKey =
+      GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,18 +41,20 @@ class HomeScreen extends GetView<NavigationController> {
         extendBody: true,
         // We use Obx here to listen to the NavigationController index
         body: AppBackground(
-          child: Obx(() => IndexedStack(
-            index: controller.selectedIndex.value,
-            children: [
-              const MainSwipePage(),    // Index 0
-              const MatchRequestPage(), // Index 1
-              const ExplorePage(),
-              const MessageListScreen(),// Index 2
-             // _buildPlaceholder("Message Page"), // Index 3
-              const ProfileScreen(),    // Index 4
-              // REMOVED the SizedBox.shrink() from here
-            ],
-          )),
+          child: Obx(
+            () => IndexedStack(
+              index: controller.selectedIndex.value,
+              children: [
+                const MainSwipePage(), // Index 0
+                const MatchRequestPage(), // Index 1
+                const ExplorePage(),
+                const MessageListScreen(), // Index 2
+                // _buildPlaceholder("Message Page"), // Index 3
+                const ProfileScreen(), // Index 4
+                // REMOVED the SizedBox.shrink() from here
+              ],
+            ),
+          ),
         ),
         // body: AppBackground(
         //   child: Obx(() => IndexedStack(

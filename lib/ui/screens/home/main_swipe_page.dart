@@ -308,10 +308,13 @@ class _MainSwipePageState extends State<MainSwipePage> {
               children: [
                 // In MainSwipePage.dart
                 IconButton(
-                  icon: const Icon(Icons.workspace_premium, color: Colors.white),
+                  icon: const Icon(
+                    Icons.workspace_premium,
+                    color: Colors.white,
+                  ),
                   onPressed: () => Get.to(
-                          () => const SubscriptionScreen(),
-                      arguments: {'fromMainSwipe': true} // Pass the flag here
+                    () => const SubscriptionScreen(),
+                    arguments: {'fromMainSwipe': true}, // Pass the flag here
                   ),
                 ),
                 // IconButton(
@@ -343,9 +346,11 @@ class _MainSwipePageState extends State<MainSwipePage> {
                 return CardSwiper(
                   controller: controller.swiperController,
                   cardsCount: controller.profiles.length,
+                  allowedSwipeDirection: const AllowedSwipeDirection.only(
+                    left: true,
+                    right: true,
+                  ),
                   onSwipe: (previousIndex, currentIndex, direction) {
-                    // We don't call the sheet here anymore!
-                    // Just show the ghost popups for visual feedback if you want.
                     if (direction == CardSwiperDirection.right) {
                       _showGhostPopup(icon: Icons.favorite, color: Colors.red);
                     } else if (direction == CardSwiperDirection.left) {
@@ -370,11 +375,7 @@ class _MainSwipePageState extends State<MainSwipePage> {
                   cardBuilder:
                       (context, index, horizontalThreshold, verticalThreshold) {
                         final profile = controller.profiles[index];
-
-                        // --- UPDATED BLUR LOGIC ---
-                        // If the index being built is NOT the active index, it's a background card.
                         bool isBackground = index != _activeCardIndex;
-
                         return _buildSwipableCard(
                           profile,
                           isBlurred: isBackground,
@@ -517,18 +518,14 @@ class _MainSwipePageState extends State<MainSwipePage> {
         _actionCircle(
           Icons.close,
           Colors.red,
-          () => _showGhostPopup(icon: Icons.close, color: Colors.red),
+          () { 
+          controller.swiperController.swipe(CardSwiperDirection.left);}
         ),
         _actionCircle(Icons.favorite, Colors.red, () {
           // 1. Get the profile currently being displayed
           final currentProfile = controller.profiles[_activeCardIndex];
-
-          // 2. Show that rotated Match Request sheet we built
           _showMatchRequestSheet(currentProfile);
 
-          // 3. Optional: If you want the card to actually swipe away
-          // AFTER they see the sheet, you can call this inside the
-          // "Message" button of the sheet instead.
         }),
         _actionCircle(
           Icons.near_me,
