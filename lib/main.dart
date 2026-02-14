@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 import 'app.dart';
 
 void main() {
-  // Register controllers (using Get.put for immediate initialization where needed)
+  
   Get.put(NavigationController());
   Get.lazyPut(() => HomeController());
   //Get.lazyPut(() => ProfileController());
