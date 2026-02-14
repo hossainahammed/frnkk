@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/ui/screens/artists_profile/song_player_view.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/app_background.dart';
@@ -20,7 +21,7 @@ class AllAudioView extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           scrolledUnderElevation: 0,
-          title: const Text(
+          title: Text(
             "All Audio",
             style: GoogleFonts.poltawskiNowy(
               color: Colors.white,
