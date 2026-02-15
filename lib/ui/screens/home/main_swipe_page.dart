@@ -18,6 +18,9 @@ class MainSwipePage extends StatefulWidget {
 
 class _MainSwipePageState extends State<MainSwipePage> {
   final controller = Get.find<HomeController>();
+  final CardSwiperController swiperController = CardSwiperController();
+
+
 
   int _activeCardIndex = 0;
 

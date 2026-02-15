@@ -1,5 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:frnkk/ui/screens/home/home_view.dart';
+import 'package:frnkk/widgets/bottom_navigation_bar/navigation_controller.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/app_background.dart';
 
@@ -20,7 +22,14 @@ class MatchRequestPage extends StatelessWidget {
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.pop(context),
+              // onPressed: () => Navigator.pop(context),
+               // onPressed: () => Get.to(HomeScreen()),
+              onPressed: () {
+                // Switch back to the home tab (index 0) instead of navigating
+                final navController = Get.find<NavigationController>();
+                navController.changeTabIndex(0);  // Assumes changeTabIndex is the method in NavigationController
+              },
+
             ),
             title: const Text(
               "Match",
