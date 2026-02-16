@@ -3,12 +3,12 @@ import 'package:device_preview/device_preview.dart';
 import 'package:frnkk/controllers/onboarding_controller.dart';
 import 'package:frnkk/controllers/profile_controller.dart';
 import 'package:frnkk/ui/screens/artists_profile/artists_profile_controller.dart';
-import 'package:frnkk/ui/screens/create_new_password/create_new_password_controller.dart';
-import 'package:frnkk/ui/screens/forgot_password/forgot_password_controller.dart';
-import 'package:frnkk/ui/screens/home/home_controller.dart';
+import 'package:frnkk/controllers/create_new_password_controller.dart';
+import 'package:frnkk/controllers/forgot_password_controller.dart';
+import 'package:frnkk/controllers/home_controller.dart';
 import 'package:frnkk/ui/screens/login/login_controller.dart';
-import 'package:frnkk/ui/screens/otp/otp_controller.dart';
-import 'package:frnkk/ui/screens/signup/signup_controller.dart';
+import 'package:frnkk/controllers/otp_controller.dart';
+import 'package:frnkk/controllers/signup_controller.dart';
 import 'package:frnkk/widgets/bottom_navigation_bar/navigation_controller.dart';
 import 'package:get/get.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frnkk/controllers/profile_controller.dart';
 import 'package:frnkk/ui/screens/Settings/profileScreen.dart';
 import 'package:frnkk/ui/screens/explore/explore_view.dart';
-import 'package:frnkk/ui/screens/home/home_controller.dart';
+import 'package:frnkk/controllers/home_controller.dart';
 import 'package:frnkk/ui/screens/home/main_swipe_page.dart';
 import 'package:frnkk/ui/screens/match/match_request_view.dart';
 import 'package:frnkk/ui/screens/messasge/message_list_view.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frnkk/ui/screens/messasge/chat_controller.dart';
+import 'package:frnkk/controllers/chat_controller.dart';
 import 'package:frnkk/ui/screens/messasge/chat_message_model.dart';
 import 'package:frnkk/ui/screens/messasge/media_preview.dart';
 import 'package:get/get.dart';
