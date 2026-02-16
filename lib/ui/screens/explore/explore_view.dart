@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frnkk/ui/screens/explore/explore_controller.dart';
+import 'package:frnkk/controllers/explore_controller.dart';
 import 'package:frnkk/ui/screens/explore/gig_details_view.dart';
 import 'package:frnkk/ui/screens/home/home_view.dart';
 import 'package:get/get.dart';

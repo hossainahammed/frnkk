@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:frnkk/ui/screens/Subscription/SubscriptionScreen.dart';
-import 'package:frnkk/ui/screens/home/home_controller.dart';
+import 'package:frnkk/controllers/home_controller.dart';
 import 'package:frnkk/ui/screens/home/home_view.dart';
 import 'package:frnkk/ui/screens/notifications/notifications_view.dart';
 import 'package:get/get.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frnkk/ui/screens/forgot_password/forgot_password_controller.dart';
+import 'package:frnkk/controllers/forgot_password_controller.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/app_background.dart';
 import 'package:frnkk/widgets/buttons/custom_button.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frnkk/ui/screens/otp/otp_controller.dart';
+import 'package:frnkk/controllers/otp_controller.dart';
 import 'package:get/get.dart';
 import 'package:frnkk/widgets/app_background.dart';
 import 'package:frnkk/widgets/buttons/custom_button.dart';
