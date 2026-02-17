@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import 'package:frnkk/widgets/app_background.dart';
 import 'package:frnkk/widgets/buttons/custom_button.dart';
+import 'package:frnkk/ui/screens/artists_profile/all_albums_view.dart';
 
 import 'artists_model.dart';
 // import 'package:frnkk/app/module/artists_profile/artists_profile_controller.dart';
@@ -15,7 +16,6 @@ import 'artists_model.dart';
 // import 'package:frnkk/app/module/artists_profile/portfolio_tab_view.dart';
 // import 'package:frnkk/app/module/artists_profile/skills_and_genres_tab_view.dart';
 // import 'package:frnkk/app/module/artists_profile/experience_view.dart';
-
 
 class ArtistProfileView extends StatelessWidget {
   const ArtistProfileView({super.key});
@@ -444,12 +444,15 @@ class ArtistProfileView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(
-              "See all",
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.6),
-                fontSize: 14,
-                decoration: TextDecoration.underline,
+            GestureDetector(
+              onTap: () => Get.to(() => AllAlbumsView(data: data)),
+              child: Text(
+                "See all",
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.6),
+                  fontSize: 14,
+                  decoration: TextDecoration.underline,
+                ),
               ),
             ),
           ],

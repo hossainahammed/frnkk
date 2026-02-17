@@ -83,12 +83,7 @@ class HomeScreen extends GetView<NavigationController> {
         // ),
         // bottomNavigationBar: const CustomBottomNav(),
         // home_view.dart
-        bottomNavigationBar: Obx(() {
-          // If index is 4 (Profile), return an empty box. Otherwise, show the Nav.
-          return controller.selectedIndex.value == 4
-              ? const SizedBox.shrink()
-              : const CustomBottomNav();
-        }),
+        bottomNavigationBar: const CustomBottomNav(),
       ),
     );
   }

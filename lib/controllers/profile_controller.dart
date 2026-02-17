@@ -33,16 +33,22 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 class ProfileController extends GetxController {
   var userName = "MD. AKIB AHAMED".obs;
   var userEmail = "user@yourdomain.com".obs;
-
+  var userDob = "dd/mm/yyyy".obs;
+  var userCountry = "Select Your Country".obs;
 
   var planStatus = "Monthly".obs;
   var planExpiry = "N/A".obs;
 
-
-
-  void updatePersonalInfo({required String name, required String email}) {
+  void updatePersonalInfo({
+    required String name,
+    required String email,
+    required String dob,
+    required String country,
+  }) {
     userName.value = name;
     userEmail.value = email;
+    userDob.value = dob;
+    userCountry.value = country;
 
     Get.back(); // Return to Profile Screen
     Get.snackbar(
@@ -59,14 +65,12 @@ class ProfileController extends GetxController {
     DateTime now = DateTime.now();
     DateTime expiry = DateTime(now.year, now.month + 1, now.day);
     planExpiry.value = "${expiry.day}/${expiry.month}/${expiry.year}";
-     update();
+    update();
   }
 
   void onUpgradeTap() {
     Get.to(() => const SubscriptionScreen());
   }
-
-
 
   var transactions = <TransactionModel>[
     TransactionModel(
@@ -110,6 +114,5 @@ class ProfileController extends GetxController {
     //Get.back();
     Get.offAllNamed('/login');
     //Get.to(()=>SingerProfileScreen());
-
   }
 }
