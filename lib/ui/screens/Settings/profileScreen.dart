@@ -9,7 +9,6 @@ import 'package:frnkk/ui/screens/Settings/personal_data_screen.dart';
 import 'package:frnkk/ui/screens/Singer_profileView_and_Setup/singer_profile_screen.dart';
 import 'package:frnkk/ui/screens/Subscription/SubscriptionScreen.dart';
 import 'package:frnkk/utils/app_themes.dart';
-import 'package:frnkk/widgets/bottom_navigation_bar/navigation_controller.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -28,30 +27,7 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: false,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white, size: 24.sp),
-          onPressed: () {
-            // 1. Check if we are inside a nested navigation (like settings)
-            // We check if the Navigator can pop.
-            // IMPORTANT: We use context to ensure we aren't popping the main HomeScreen
-            if (Navigator.of(context).canPop()) {
-              Get.back();
-            } else {
-              // 2. If we are on the main Profile tab, just switch the index to 0
-              Get.find<NavigationController>().changeTabIndex(0);
-            }
-          },
-        ),
-        // leading: IconButton(
-        //   icon: Icon(Icons.arrow_back, color: Colors.white, size: 24.sp),
-        //   onPressed: () {
-        //     if (Get.key.currentState?.canPop() ?? false) {
-        //       Get.back();
-        //     } else {
-        //       Get.find<NavigationController>().changeTabIndex(0);
-        //     }
-        //   },
-        // ),
+        automaticallyImplyLeading: false,
         title: Text(
           "Profile",
           style: TextStyle(
@@ -70,13 +46,20 @@ class ProfileScreen extends StatelessWidget {
           Column(
             children: [
               // This empty box pushes the scrollable area down exactly below the AppBar
-              SizedBox(height: AppBar().preferredSize.height + MediaQuery.of(context).padding.top),
+              SizedBox(
+                height:
+                    AppBar().preferredSize.height +
+                    MediaQuery.of(context).padding.top,
+              ),
 
               // The Rest is the scrollable area
               Expanded(
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24.w,
+                    vertical: 20.h,
+                  ),
                   child: Column(
                     children: [
                       Stack(
@@ -90,31 +73,45 @@ class ProfileScreen extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 16.h),
-                      Obx(() => Text(
-                        controller.userName.value,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.bold,
+                      Obx(
+                        () => Text(
+                          controller.userName.value,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      )),
-                      Obx(() => Text(
-                        controller.userEmail.value,
-                        style: TextStyle(color: Colors.white54, fontSize: 14.sp),
-                      )),
+                      ),
+                      Obx(
+                        () => Text(
+                          controller.userEmail.value,
+                          style: TextStyle(
+                            color: Colors.white54,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                      ),
                       const SizedBox(height: 15),
                       SizedBox(
                         width: double.infinity,
                         height: 48.h,
                         child: OutlinedButton(
-                          onPressed: () => Get.to(() => const SingerProfileScreen()),
+                          onPressed: () =>
+                              Get.to(() => const SingerProfileScreen()),
                           style: OutlinedButton.styleFrom(
                             side: const BorderSide(color: Color(0xFFD458FF)),
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(24.r)),
+                              borderRadius: BorderRadius.circular(24.r),
+                            ),
                           ),
-                          child: Text("My Profile",
-                              style: TextStyle(color: Colors.white, fontSize: 16.sp)),
+                          child: Text(
+                            "My Profile",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(height: 30.h),
@@ -127,9 +124,9 @@ class ProfileScreen extends StatelessWidget {
                         onTap: () => Get.to(() => const PersonalDataScreen()),
                       ),
                       _buildMenuItem(
-                          'assets/images/profile_Icon/Subscription.png',
-                          "Subscription ",
-                          onTap: () => Get.to(() => const SubscriptionScreen())
+                        'assets/images/profile_Icon/Subscription.png',
+                        "Subscription ",
+                        onTap: () => Get.to(() => const SubscriptionScreen()),
                       ),
                       _buildMenuItem(
                         'assets/images/profile_Icon/credit-card-03.png',
@@ -181,7 +178,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildPlanStatusCard(ProfileController controller) {
     return Obx(
-          () => Container(
+      () => Container(
         padding: EdgeInsets.all(16.w),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.08),
@@ -211,7 +208,9 @@ class ProfileScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                   ),
                   child: Text(
-                    controller.planStatus.value == "Monthly" ? "Upgrade" : "Manage",
+                    controller.planStatus.value == "Monthly"
+                        ? "Upgrade"
+                        : "Manage",
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
@@ -221,7 +220,10 @@ class ProfileScreen extends StatelessWidget {
             Row(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 8.h,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8.r),
@@ -264,20 +266,34 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(dynamic icon, String title, {bool isLogout = false, VoidCallback? onTap}) {
+  Widget _buildMenuItem(
+    dynamic icon,
+    String title, {
+    bool isLogout = false,
+    VoidCallback? onTap,
+  }) {
     Widget leading;
     if (icon is IconData) {
-      leading = Icon(icon, color: isLogout ? const Color(0xFFFF5E5E) : Colors.white, size: 24.sp);
+      leading = Icon(
+        icon,
+        color: isLogout ? const Color(0xFFFF5E5E) : Colors.white,
+        size: 24.sp,
+      );
     } else if (icon is String) {
       leading = Image.asset(
         icon,
         width: 24.sp,
         height: 24.sp,
         color: isLogout ? const Color(0xFFFF5E5E) : Colors.white,
-        errorBuilder: (context, error, stackTrace) => Icon(Icons.error, color: Colors.red, size: 24.sp),
+        errorBuilder: (context, error, stackTrace) =>
+            Icon(Icons.error, color: Colors.red, size: 24.sp),
       );
     } else {
-      leading = Icon(Icons.error, color: isLogout ? const Color(0xFFFF5E5E) : Colors.white, size: 24.sp);
+      leading = Icon(
+        Icons.error,
+        color: isLogout ? const Color(0xFFFF5E5E) : Colors.white,
+        size: 24.sp,
+      );
     }
 
     return ListTile(
