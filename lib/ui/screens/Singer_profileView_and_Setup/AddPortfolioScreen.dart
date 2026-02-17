@@ -101,7 +101,7 @@ class AddPortfolioScreen extends StatelessWidget {
         children: [
           SizedBox(height: 20.h),
           _buildSectionTitle("Album"),
-          _buildTextField("Title *", "The Bleckest Day"),
+          _buildTextField("Title *", "The Bleakest Day"),
           _buildTextField("Type *", "Classical"),
           _buildTextField("Artist Name *", "Classical"),
           // Pass the controller and the pick function
