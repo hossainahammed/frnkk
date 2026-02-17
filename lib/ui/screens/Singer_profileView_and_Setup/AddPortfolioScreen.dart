@@ -10,7 +10,7 @@ class AddPortfolioScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize the controller
+
     final controller = Get.put(PortfolioController());
 
     return DefaultTabController(
