@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:frnkk/widgets/custom_app_header.dart';
+import 'package:frnkk/routes/app_routes.dart';
 
 class MainSwipePage extends StatefulWidget {
   const MainSwipePage({super.key});
@@ -249,7 +250,10 @@ class _MainSwipePageState extends State<MainSwipePage> {
                         borderRadius: BorderRadius.circular(30),
                       ),
                     ),
-                    onPressed: () => Get.back(),
+                    onPressed: () {
+                      Get.back();
+                      Get.toNamed(AppRoutes.chat, arguments: profile);
+                    },
                     child: const Text(
                       "Message",
                       style: TextStyle(fontWeight: FontWeight.bold),
@@ -454,6 +458,7 @@ class _MainSwipePageState extends State<MainSwipePage> {
         children: [
           IconButton(
             icon: const Icon(Icons.menu, color: Colors.white),
+            iconSize: 32,
             onPressed: () {
               // This looks for the HomeScreen's Scaffold and opens its drawer
               HomeScreen.scaffoldKey.currentState?.openDrawer();
@@ -461,10 +466,10 @@ class _MainSwipePageState extends State<MainSwipePage> {
           ),
           Text(
             "Vibe matchR",
-            style: GoogleFonts.poltawskiNowy(
+            style: GoogleFonts.nunitoSans(
               color: Colors.white,
               fontSize: 24,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
             ),
           ),
           const Row(
@@ -490,33 +495,64 @@ class _MainSwipePageState extends State<MainSwipePage> {
       ),
       child: Stack(
         children: [
-          _buildGradientOverlay(),
+          // Align the gradient container to the absolute bottom
           Positioned(
-            bottom: 20,
-            left: 20,
-            right: 20,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  profile['name'],
-                  style: GoogleFonts.poltawskiNowy(
-                    color: Colors.white,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              // Padding: 40 top (to give the gradient room to fade), 20 others
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+              decoration: BoxDecoration(
+                // Match the card's bottom rounding
+                borderRadius: const BorderRadius.vertical(
+                  bottom: Radius.circular(25),
+                ),
+                // Gradient starts transparent and darkens behind the text
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    //  Colors.transparent,
+                    const Color.fromARGB(
+                      255,
+                      8,
+                      3,
+                      34,
+                    ).withOpacity(0.7), // Mid-transition
+                    const Color.fromARGB(
+                      255,
+                      210,
+                      82,
+                      222,
+                    ).withOpacity(0.7), // Solid bottom
+                  ],
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min, // Wrap only the text height
+                children: [
+                  Text(
+                    profile['name'],
+                    style: GoogleFonts.poltawskiNowy(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 5),
-                _infoRow(Icons.work_outline, profile['role']),
-                const SizedBox(height: 5),
-                _infoRow(Icons.location_on_outlined, profile['location']),
-                const SizedBox(height: 10),
-                Row(
-                  children: profile['genres']
-                      .map<Widget>((g) => _genreChip(g))
-                      .toList(),
-                ),
-              ],
+                  const SizedBox(height: 5),
+                  _infoRow(Icons.work_outline, profile['role']),
+                  const SizedBox(height: 5),
+                  _infoRow(Icons.location_on_outlined, profile['location']),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: profile['genres']
+                        .map<Widget>((g) => _genreChip(g))
+                        .toList(),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -532,7 +568,11 @@ class _MainSwipePageState extends State<MainSwipePage> {
         Expanded(
           child: Text(
             text,
-            style: const TextStyle(color: Colors.white70, fontSize: 12),
+            style: GoogleFonts.nunitoSans(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -552,11 +592,13 @@ class _MainSwipePageState extends State<MainSwipePage> {
           final currentProfile = controller.profiles[_activeCardIndex];
           _showMatchRequestSheet(currentProfile);
         }),
-        _actionCircle(
-          Icons.near_me,
-          Colors.blue,
-          () => debugPrint("Near me pressed"),
-        ),
+        _actionCircle(Icons.near_me, Colors.blue, () {
+          if (controller.profiles.isNotEmpty &&
+              _activeCardIndex < controller.profiles.length) {
+            final currentProfile = controller.profiles[_activeCardIndex];
+            Get.toNamed(AppRoutes.chat, arguments: currentProfile);
+          }
+        }),
       ],
     );
   }
