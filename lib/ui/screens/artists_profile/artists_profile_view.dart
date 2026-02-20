@@ -395,7 +395,7 @@ class ArtistProfileView extends StatelessWidget {
 
           final String displayedText = (isExpanded || bioText.length < 150)
               ? bioText
-              : "${bioText.substring(0, 150)}";
+              : "${bioText.substring(0, 150)}...";
 
           return GestureDetector(
             onTap: () => controller.toggleAboutExpanded(),
@@ -411,7 +411,7 @@ class ArtistProfileView extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: isExpanded ? " see less" : " ...see more",
+                    text: isExpanded ? " show less" : " see more",
                     style: const TextStyle(
                       color: Color(0xFFD455E9),
                       fontWeight: FontWeight.bold,

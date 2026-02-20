@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:frnkk/widgets/app_background.dart';
 import 'package:frnkk/widgets/buttons/custom_button.dart';
 
-
 class GigDetailsView extends StatelessWidget {
   final Map<String, dynamic> data;
   const GigDetailsView({super.key, required this.data});
@@ -48,7 +47,7 @@ class GigDetailsView extends StatelessWidget {
               right: 20,
               child: CustomButton(
                 label: "Message",
-                onPressed: () =>Get.to(() => const ContactUsScreen()),
+                onPressed: () => Get.to(() => const ContactUsScreen()),
                 // onPressed: () => print("Contacting ${data['name']}..."),
               ),
             ),
@@ -87,10 +86,18 @@ class GigDetailsView extends StatelessWidget {
             _buildEventTypeGrid(),
             const SizedBox(height: 20),
             _buildSectionTitle("Included"),
-            _buildDescriptionText(),
+            _ExpandableText(
+              content:
+                  data['included'] ??
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatcxv dsdfg fdg sdfsd hgj gf f sdfghfgg dsf g df dsf  fd g dffdf fd d sd f sad asdf d dadf fg dsf as fdfs dfgsdf s sdfdg df as d ffg gf sd dsf ds fsdfh kyu jfgg sa as.",
+            ),
             const SizedBox(height: 20),
             _buildSectionTitle("Excluded"),
-            _buildDescriptionText(),
+            _ExpandableText(
+              content:
+                  data['excluded'] ??
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequatcxv dsdfg fdg sdfsd hgj gf f sdfghfgg dsf g df dsf  fd g dffdf fd d sd f sad asdf d dadf fg dsf as fdfs dfgsdf s sdfdg df as d ffg gf sd dsf ds fsdfh kyu jfgg sa as.",
+            ),
           ],
         ),
       ),
@@ -98,50 +105,50 @@ class GigDetailsView extends StatelessWidget {
   }
 
   Widget _buildMainInfo() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            data['role'],
-            style: const TextStyle(
-              color: Colors.purpleAccent,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              // We find the matching Artist object from your Mock Data
-              // This ensures we pass a real "Artist" object, not just a Map
-              final artistObject = ArtistMockData.artists.firstWhere(
-                (a) => a.name == data['name'],
-                orElse: () => ArtistMockData.artists[0],
-              );
-
-              Get.toNamed('/artist-profile', arguments: artistObject);
-            },
-            child: Text(
-              data['name'], // Use the name from the 'data' map provided to this view
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              data['role'],
               style: const TextStyle(
+                color: Colors.purpleAccent,
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
-                decoration: TextDecoration.underline,
               ),
             ),
-          ),
-          Text(
-            data['location'],
-            style: const TextStyle(color: Colors.white38, fontSize: 12),
-          ),
-        ],
-      ),
-    ],
-  );
-}
+            GestureDetector(
+              onTap: () {
+                // We find the matching Artist object from your Mock Data
+                // This ensures we pass a real "Artist" object, not just a Map
+                final artistObject = ArtistMockData.artists.firstWhere(
+                  (a) => a.name == data['name'],
+                  orElse: () => ArtistMockData.artists[0],
+                );
+
+                Get.toNamed('/artist-profile', arguments: artistObject);
+              },
+              child: Text(
+                data['name'], // Use the name from the 'data' map provided to this view
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            Text(
+              data['location'],
+              style: const TextStyle(color: Colors.white38, fontSize: 12),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 
   Widget _buildSectionTitle(String title) {
     return Padding(
@@ -154,13 +161,6 @@ class GigDetailsView extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-    );
-  }
-
-  Widget _buildDescriptionText() {
-    return const Text(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      style: TextStyle(color: Colors.white70, height: 1.5),
     );
   }
 
@@ -188,6 +188,62 @@ class GigDetailsView extends StatelessWidget {
             ),
           )
           .toList(),
+    );
+  }
+}
+
+class _ExpandableText extends StatefulWidget {
+  final String content;
+  const _ExpandableText({required this.content});
+
+  @override
+  State<_ExpandableText> createState() => _ExpandableTextState();
+}
+
+class _ExpandableTextState extends State<_ExpandableText> {
+  bool _isExpanded = false;
+  static const int _truncateLimit = 150;
+
+  @override
+  Widget build(BuildContext context) {
+    final String content = widget.content;
+    final bool canExpand = content.length > _truncateLimit;
+
+    return GestureDetector(
+      onTap: () {
+        if (canExpand) {
+          setState(() {
+            _isExpanded = !_isExpanded;
+          });
+        }
+      },
+      child: RichText(
+        textAlign: TextAlign.justify,
+        text: TextSpan(
+          style: const TextStyle(
+            color: Colors.white70,
+            fontSize: 14,
+            height: 1.5,
+          ),
+          children: [
+            TextSpan(
+              text: _isExpanded
+                  ? content
+                  : (canExpand
+                        ? "${content.substring(0, _truncateLimit)}..."
+                        : content),
+            ),
+            if (canExpand)
+              TextSpan(
+                text: _isExpanded ? " show less" : " see more",
+                style: const TextStyle(
+                  color: Color(0xFFD455E9),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }
