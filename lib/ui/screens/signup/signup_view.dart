@@ -15,10 +15,12 @@ class SignUpScreen extends GetView<SignUpController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      iconTheme: const IconThemeData(color: Colors.white), // Makes the auto-button white
-    ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ), // Makes the auto-button white
+      ),
       body: AppBackground(
         child: SafeArea(
           child: LayoutBuilder(
@@ -28,122 +30,166 @@ class SignUpScreen extends GetView<SignUpController> {
                 child: ConstrainedBox(
                   constraints: BoxConstraints(minHeight: constraints.maxHeight),
                   child: IntrinsicHeight(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const SizedBox(height: 40),
-                        Text(
-                          "Sign up",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-
-                        CustomTextField(
-                          hint: "Username",
-                          controller: controller.usernameController,
-                        ),
-                        const SizedBox(height: 15),
-
-                        CustomTextField(
-                          hint: "Email address",
-                          controller: controller.emailController,
-                        ),
-                        const SizedBox(height: 15),
-
-                        // Dropdown for Role
-                        Obx(
-                          () => CustomDropdown(
-                            hint: "Select Role",
-                            value: controller.selectedRole.value.isEmpty
-                                ? null
-                                : controller.selectedRole.value,
-                            items: const ["Musician", "Songwriter", "Producer", "Singer"],
-                            onChanged: (val) =>
-                                controller.selectedRole.value = val ?? "",
-                          ),
-                        ),
-                        const SizedBox(height: 15),
-
-                        Obx(
-                          () => CustomTextField(
-                            hint: "Password",
-                            controller: controller.passwordController,
-                            obscureText: !controller.isPasswordVisible.value,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                controller.isPasswordVisible.value
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Colors.white38,
-                                size: 20,
-                              ),
-                              onPressed: controller.togglePasswordVisibility,
+                    child: Form(
+                      key: controller.formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const SizedBox(height: 40),
+                          Text(
+                            "Sign up",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 15),
+                          const SizedBox(height: 40),
 
-                        Obx(
-                          () => CustomTextField(
-                            hint: "Confirm password",
-                            controller: controller.confirmPasswordController,
-                            obscureText:
-                                !controller.isConfirmPasswordVisible.value,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                controller.isConfirmPasswordVisible.value
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Colors.white38,
-                                size: 20,
-                              ),
-                              onPressed:
-                                  controller.toggleConfirmPasswordVisibility,
+                          CustomTextField(
+                            hint: "Username",
+                            controller: controller.usernameController,
+                            validator: (val) {
+                              if (val == null || val.isEmpty) {
+                                return "Username is required";
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 15),
+
+                          CustomTextField(
+                            hint: "Email address",
+                            controller: controller.emailController,
+                            validator: (val) {
+                              if (val == null || val.isEmpty) {
+                                return "Email is required";
+                              }
+                              final emailRegex = RegExp(
+                                r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                              );
+                              if (!emailRegex.hasMatch(val)) {
+                                return "Please enter a valid email address";
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 15),
+
+                          // Dropdown for Role
+                          Obx(
+                            () => CustomDropdown(
+                              hint: "Select Role",
+                              value: controller.selectedRole.value.isEmpty
+                                  ? null
+                                  : controller.selectedRole.value,
+                              items: const [
+                                "Musician",
+                                "Songwriter",
+                                "Producer",
+                                "Singer",
+                              ],
+                              onChanged: (val) =>
+                                  controller.selectedRole.value = val ?? "",
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 30),
+                          const SizedBox(height: 15),
 
-                        // Main Sign Up Button
-                        CustomButton(
-                          label: "Sign up",
-                          width: 390,
-                          height: 48,
-                          onPressed: (){
-                            controller.login();
-                            }
-                        ),
-                        const SizedBox(height: 25),
+                          Obx(
+                            () => CustomTextField(
+                              hint: "Password",
+                              controller: controller.passwordController,
+                              obscureText: !controller.isPasswordVisible.value,
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return "Password is required";
+                                }
+                                if (val.length < 6) {
+                                  return "Password must be at least 6 characters";
+                                }
+                                return null;
+                              },
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  controller.isPasswordVisible.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.white38,
+                                  size: 20,
+                                ),
+                                onPressed: controller.togglePasswordVisibility,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 15),
 
-                        _buildDivider("Already have an account?"),
-                        const SizedBox(height: 25),
+                          Obx(
+                            () => CustomTextField(
+                              hint: "Confirm password",
+                              controller: controller.confirmPasswordController,
+                              obscureText:
+                                  !controller.isConfirmPasswordVisible.value,
+                              validator: (val) {
+                                if (val == null || val.isEmpty) {
+                                  return "Confirm password is required";
+                                }
+                                if (val != controller.passwordController.text) {
+                                  return "Passwords do not match";
+                                }
+                                return null;
+                              },
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  controller.isConfirmPasswordVisible.value
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.white38,
+                                  size: 20,
+                                ),
+                                onPressed:
+                                    controller.toggleConfirmPasswordVisibility,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 30),
 
-                        // Log in Button (Glassy)
-                        CustomButton(
-                          label: "Log in",
-                          isGlassy: true,
-                          width: 390,
-                          height: 48,
-                          onPressed: () => Get.back(), // Goes back to Login
-                        ),
-                        const SizedBox(height: 15),
+                          // Main Sign Up Button
+                          CustomButton(
+                            label: "Sign up",
+                            width: 390,
+                            height: 48,
+                            onPressed: () {
+                              controller.signUp();
+                            },
+                          ),
+                          const SizedBox(height: 25),
 
-                        // Google Button
-                        CustomButton(
-                          label: "Google",
-                          isGlassy: true,
-                          width: 390,
-                          height: 48,
-                          iconPath:
-                              'assets/images/onboarding_images/google.svg',
-                          onPressed: () {},
-                        ),
-                        const SizedBox(height: 40),
-                      ],
+                          _buildDivider("Already have an account?"),
+                          const SizedBox(height: 25),
+
+                          // Log in Button (Glassy)
+                          CustomButton(
+                            label: "Log in",
+                            isGlassy: true,
+                            width: 390,
+                            height: 48,
+                            onPressed: () => Get.back(), // Goes back to Login
+                          ),
+                          const SizedBox(height: 15),
+
+                          // Google Button
+                          CustomButton(
+                            label: "Google",
+                            isGlassy: true,
+                            width: 390,
+                            height: 48,
+                            iconPath:
+                                'assets/images/onboarding_images/google.svg',
+                            onPressed: () {},
+                          ),
+                          const SizedBox(height: 40),
+                        ],
+                      ),
                     ),
                   ),
                 ),
