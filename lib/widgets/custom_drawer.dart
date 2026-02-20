@@ -25,7 +25,7 @@ class CustomAppDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 60),
-          
+
           // 2. LOGO SECTION
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -35,7 +35,11 @@ class CustomAppDrawer extends StatelessWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ).createShader(bounds),
-              child: const Image(image: AssetImage("assets/images/drawer_image/LOGO.png"),height:57, width:105),
+              child: const Image(
+                image: AssetImage("assets/images/drawer_image/LOGO.png"),
+                height: 57,
+                width: 105,
+              ),
             ),
           ),
 
@@ -47,25 +51,53 @@ class CustomAppDrawer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 14),
               children: [
                 _buildSectionHeader("Personal Info"),
-                _buildDrawerItem(Icons.person_outline, "Personal Data",onTap: () => Get.to(() => const PersonalDataScreen()),),
-                _buildDrawerItem(Icons.workspace_premium_outlined, "Subscription",onTap: () => Get.to(() => const SubscriptionScreen()),),
-                _buildDrawerItem(Icons.payment_outlined, "Payment History",onTap: () => Get.to(() => const PaymentHistoryScreen()),),
-                
+                _buildDrawerItem(
+                  Icons.person_outline,
+                  "Personal Data",
+                  onTap: () => Get.to(() => const PersonalDataScreen()),
+                ),
+                _buildDrawerItem(
+                  Icons.workspace_premium_outlined,
+                  "Subscription",
+                  onTap: () => Get.to(() => const SubscriptionScreen()),
+                ),
+                _buildDrawerItem(
+                  Icons.payment_outlined,
+                  "Payment History",
+                  onTap: () => Get.to(() => const PaymentHistoryScreen()),
+                ),
+
                 const SizedBox(height: 25),
                 _buildSectionHeader("General"),
-                _buildDrawerItem(Icons.notifications_none_outlined, "Notification Setting",onTap: () => Get.to(() => const NotificationScreen()),),
-                _buildDrawerItem(Icons.security_outlined, "Security",onTap: () => Get.to(() => const SecurityScreen()),),
-                
+                _buildDrawerItem(
+                  Icons.notifications_none_outlined,
+                  "Notification Setting",
+                  onTap: () => Get.to(() => const NotificationScreen()),
+                ),
+                _buildDrawerItem(
+                  Icons.security_outlined,
+                  "Security",
+                  onTap: () => Get.to(() => const SecurityScreen()),
+                ),
+
                 const SizedBox(height: 25),
-                _buildSectionHeader("About",),
-                _buildDrawerItem(Icons.mail_outline, "Contact Us",onTap: () => Get.to(() => const ContactUsScreen()),),
-                _buildDrawerItem(Icons.lock_outline, "Privacy & Policy",onTap: () => _handleLogout(),),
-                
+                _buildSectionHeader("About"),
+                _buildDrawerItem(
+                  Icons.mail_outline,
+                  "Contact Us",
+                  onTap: () => Get.to(() => const ContactUsScreen()),
+                ),
+                _buildDrawerItem(
+                  Icons.lock_outline,
+                  "Privacy & Policy",
+                  onTap: () {},
+                ),
+
                 //const SizedBox(height: 20),
                 _buildDrawerItem(
-                  Icons.logout, 
-                  "Logout", 
-                  textColor: const Color(0xFFFF5C5C), 
+                  Icons.logout,
+                  "Logout",
+                  textColor: const Color(0xFFFF5C5C),
                   iconColor: const Color(0xFFFF5C5C),
                   onTap: () => _handleLogout(),
                 ),
@@ -93,8 +125,13 @@ class CustomAppDrawer extends StatelessWidget {
   }
 
   // Individual Menu Item
-  Widget _buildDrawerItem(IconData icon, String title, 
-      {Color textColor = Colors.white, Color iconColor = Colors.white, VoidCallback? onTap}) {
+  Widget _buildDrawerItem(
+    IconData icon,
+    String title, {
+    Color textColor = Colors.white,
+    Color iconColor = Colors.white,
+    VoidCallback? onTap,
+  }) {
     return ListTile(
       leading: Icon(icon, color: iconColor, size: 24),
       title: Text(
@@ -116,6 +153,5 @@ class CustomAppDrawer extends StatelessWidget {
     // Show a dialog or just navigate
     //Get.back();
     Get.toNamed('/login');
-
   }
 }

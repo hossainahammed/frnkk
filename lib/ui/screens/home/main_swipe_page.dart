@@ -313,9 +313,10 @@ class _MainSwipePageState extends State<MainSwipePage> {
               children: [
                 // In MainSwipePage.dart
                 IconButton(
-                  icon: const Icon(
-                    Icons.workspace_premium,
-                    color: Colors.white,
+                  icon: Image.asset(
+                    "assets/images/subscription.png",
+                    width: 24,
+                    height: 24,
                   ),
                   onPressed: () => Get.to(
                     () => const SubscriptionScreen(),
@@ -470,9 +471,13 @@ class _MainSwipePageState extends State<MainSwipePage> {
               fontWeight: FontWeight.w600,
             ),
           ),
-          const Row(
+          Row(
             children: [
-              Icon(Icons.workspace_premium, color: Colors.white),
+              Image.asset(
+                "assets/images/subscription.png",
+                width: 24,
+                height: 24,
+              ),
               SizedBox(width: 15),
               Icon(Icons.notifications_none, color: Colors.white),
             ],
