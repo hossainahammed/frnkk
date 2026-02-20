@@ -21,8 +21,6 @@ class _MainSwipePageState extends State<MainSwipePage> {
   final controller = Get.find<HomeController>();
   final CardSwiperController swiperController = CardSwiperController();
 
-
-
   int _activeCardIndex = 0;
 
   void _showMatchStatus(bool isFullMatch) {
@@ -118,7 +116,7 @@ class _MainSwipePageState extends State<MainSwipePage> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.asset(
-                          profile['image'],
+                          'assets/images/SingerProfile.png', // User's profile picture
                           width: 130,
                           height: 170,
                           fit: BoxFit.cover,
