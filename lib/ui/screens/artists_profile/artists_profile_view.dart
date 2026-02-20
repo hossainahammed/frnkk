@@ -10,6 +10,8 @@ import 'package:frnkk/widgets/app_background.dart';
 import 'package:frnkk/widgets/buttons/custom_button.dart';
 import 'package:frnkk/ui/screens/artists_profile/all_albums_view.dart';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:frnkk/routes/app_routes.dart';
 import 'artists_model.dart';
 // import 'package:frnkk/app/module/artists_profile/artists_profile_controller.dart';
 // import 'package:frnkk/app/module/artists_profile/artists_model.dart';
@@ -111,25 +113,23 @@ class ArtistProfileView extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             Image.asset(data.image, fit: BoxFit.cover),
-            // Gradient overlay to fade image into the background
-            const DecoratedBox(
+            Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
                     Colors.transparent,
-                    Colors.black26, // Subtle darkening for the name
-                    Colors.transparent, // Fades out so AppBackground takes over
+                    const Color(0xFF080322).withOpacity(0.9),
                   ],
-                  stops: [0.5, 0.8, 1.0],
+                  stops: const [0.6, 1.0],
                 ),
               ),
             ),
             Positioned(
-              bottom: 20,
-              left: 20,
-              right: 20,
+              bottom: 20.h,
+              left: 20.w,
+              right: 20.w,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -137,19 +137,19 @@ class ArtistProfileView extends StatelessWidget {
                     children: [
                       Text(
                         data.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
-                          fontSize: 32,
+                          fontSize: 32.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 12.w),
                       _buildAvailableBadge(),
                     ],
                   ),
                   Text(
                     "${data.connections} Connections",
-                    style: const TextStyle(color: Colors.white70, fontSize: 16),
+                    style: TextStyle(color: Colors.white70, fontSize: 16.sp),
                   ),
                 ],
               ),
@@ -162,19 +162,19 @@ class ArtistProfileView extends StatelessWidget {
 
   Widget _buildAvailableBadge() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFFD252DE)),
+        borderRadius: BorderRadius.circular(15.r),
+        border: Border.all(color: const Color(0xFFD458FF)),
       ),
-      child: const Row(
+      child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CircleAvatar(radius: 3, backgroundColor: Colors.orange),
-          SizedBox(width: 5),
+          CircleAvatar(radius: 3.r, backgroundColor: Colors.orange),
+          SizedBox(width: 5.w),
           Text(
             "Available",
-            style: TextStyle(color: Colors.white, fontSize: 12),
+            style: TextStyle(color: Colors.white, fontSize: 12.sp),
           ),
         ],
       ),
@@ -182,6 +182,8 @@ class ArtistProfileView extends StatelessWidget {
   }
 
   Widget _buildMainActionButtons() {
+    final controller = Get.find<ArtistProfileController>();
+
     return Row(
       children: [
         Expanded(
@@ -198,7 +200,15 @@ class ArtistProfileView extends StatelessWidget {
           child: CustomButton(
             label: "Message",
             height: 36,
-            onPressed: () {},
+            onPressed: () {
+              final data = controller.artistData.value;
+              if (data != null) {
+                Get.toNamed(
+                  AppRoutes.chat,
+                  arguments: {'name': data.name, 'image': data.image},
+                );
+              }
+            },
             isGlassy: true,
             borderColor: Colors.white.withOpacity(0.3),
           ),
@@ -395,7 +405,7 @@ class ArtistProfileView extends StatelessWidget {
 
           final String displayedText = (isExpanded || bioText.length < 150)
               ? bioText
-              : "${bioText.substring(0, 150)}";
+              : "${bioText.substring(0, 150)}...";
 
           return GestureDetector(
             onTap: () => controller.toggleAboutExpanded(),
@@ -411,7 +421,7 @@ class ArtistProfileView extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: isExpanded ? " see less" : " ...see more",
+                    text: isExpanded ? " show less" : " see more",
                     style: const TextStyle(
                       color: Color(0xFFD455E9),
                       fontWeight: FontWeight.bold,

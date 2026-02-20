@@ -34,7 +34,7 @@ class GigController extends GetxController {
   // Observables
   var skills = <String>['Vocal', 'Electronic', 'Harmony'].obs;
   var eventTypes = <Map<String, String>>[
-    {'type': 'Party', 'price': '200\$/Hr'}
+    {'type': 'Party', 'price': '200\$/Hr'},
   ].obs;
   var selectedImagePath = ''.obs;
 
@@ -88,8 +88,9 @@ class GigController extends GetxController {
   }
 
   // --- UPDATED PUBLISH LOGIC ---
-// --- UPDATED PUBLISH LOGIC ---
-  var editingIndex = (-1).obs; // -1 means we are creating a new gig, not editing
+  // --- UPDATED PUBLISH LOGIC ---
+  var editingIndex =
+      (-1).obs; // -1 means we are creating a new gig, not editing
 
   // Load data into controllers for editing
   void loadGigForEdit(int index) {
@@ -107,6 +108,7 @@ class GigController extends GetxController {
 
     Get.to(() => const CreateNewGigScreen());
   }
+
   void publishGig() {
     GigModel gigData = GigModel(
       title: titleController.text,
@@ -163,39 +165,39 @@ class GigController extends GetxController {
     // Use Get.offAll to go back and REBUILD the screen from scratch
     Get.offAll(() => const AddGigScreen());
   }
-//   void publishGig() {
-//     if (titleController.text.isEmpty) {
-//       Get.snackbar("Error", "Please enter a Gig Title",
-//           backgroundColor: Colors.redAccent, colorText: Colors.white);
-//       return;
-//     }
-//
-//     // 1. Create the Gig object and add to list
-//     GigModel newGig = GigModel(
-//       title: titleController.text,
-//       name: nameController.text,
-//       location: locationController.text,
-//       imagePath: selectedImagePath.value,
-//       skills: List.from(skills),
-//       eventTypes: List.from(eventTypes),
-//       included: includedController.text,
-//       excluded: excludedController.text,
-//     );
-//
-//     publishedGigs.add(newGig);
-//
-//     // 2. Go to Details Screen first so the user can see their work
-//     Get.to(() => const GigDetailsScreen());
-//
-//     // Note: We DO NOT call _resetForm() here anymore.
-//     // We call it after the user presses "Done" in the details screen.
-//   }
-//
-//   // Create this helper to clean up after everything is finished
-//   void completeProcess() {
-//     _resetForm();
-//     Get.offAll(() => const AddGigScreen());
-//   }
+  //   void publishGig() {
+  //     if (titleController.text.isEmpty) {
+  //       Get.snackbar("Error", "Please enter a Gig Title",
+  //           backgroundColor: Colors.redAccent, colorText: Colors.white);
+  //       return;
+  //     }
+  //
+  //     // 1. Create the Gig object and add to list
+  //     GigModel newGig = GigModel(
+  //       title: titleController.text,
+  //       name: nameController.text,
+  //       location: locationController.text,
+  //       imagePath: selectedImagePath.value,
+  //       skills: List.from(skills),
+  //       eventTypes: List.from(eventTypes),
+  //       included: includedController.text,
+  //       excluded: excludedController.text,
+  //     );
+  //
+  //     publishedGigs.add(newGig);
+  //
+  //     // 2. Go to Details Screen first so the user can see their work
+  //     Get.to(() => const GigDetailsScreen());
+  //
+  //     // Note: We DO NOT call _resetForm() here anymore.
+  //     // We call it after the user presses "Done" in the details screen.
+  //   }
+  //
+  //   // Create this helper to clean up after everything is finished
+  //   void completeProcess() {
+  //     _resetForm();
+  //     Get.offAll(() => const AddGigScreen());
+  //   }
 
   void _resetForm() {
     titleController.clear();
@@ -204,7 +206,9 @@ class GigController extends GetxController {
     includedController.clear();
     excludedController.clear();
     skills.value = ['Vocal', 'Electronic', 'Harmony'];
-    eventTypes.value = [{'type': 'Party', 'price': '200\$/Hr'}];
+    eventTypes.value = [
+      {'type': 'Party', 'price': '200\$/Hr'},
+    ];
     selectedImagePath.value = '';
   }
 }

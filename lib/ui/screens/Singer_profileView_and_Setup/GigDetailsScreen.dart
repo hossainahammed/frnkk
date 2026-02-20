@@ -72,19 +72,30 @@ class GigDetailsScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Singer",
-                                  style: TextStyle(
-                                      color: const Color(0xFFD458FF),
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.bold)),
-                              Text(controller.nameController.text,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18.sp)),
-                              Text(controller.locationController.text,
-                                  style: TextStyle(
-                                      color: Colors.white54, fontSize: 14.sp)),
+                              Text(
+                                "Singer",
+                                style: TextStyle(
+                                  color: const Color(0xFFD458FF),
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                controller.nameController.text,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18.sp,
+                                ),
+                              ),
+                              Text(
+                                controller.locationController.text,
+                                style: TextStyle(
+                                  color: Colors.white54,
+                                  fontSize: 14.sp,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -95,18 +106,25 @@ class GigDetailsScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(controller.titleController.text,
-                                  textAlign: TextAlign.right,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.bold)),
-                              Obx(() => Text(
-                                controller.skills.join(", "),
+                              Text(
+                                controller.titleController.text,
                                 textAlign: TextAlign.right,
                                 style: TextStyle(
-                                    color: Colors.white70, fontSize: 11.sp),
-                              )),
+                                  color: Colors.white,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Obx(
+                                () => Text(
+                                  controller.skills.join(", "),
+                                  textAlign: TextAlign.right,
+                                  style: TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 11.sp,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -114,32 +132,46 @@ class GigDetailsScreen extends StatelessWidget {
                     ),
                     const Divider(color: Colors.white24, height: 30),
 
-                    Text("Event Type",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.bold)),
+                    Text(
+                      "Event Type",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     SizedBox(height: 15.h),
 
-                    Obx(() => Wrap(
-                      spacing: 15.w, // Horizontal space between items
-                      runSpacing: 12.h, // Vertical space between lines
-                      children: controller.eventTypes.map((event) {
-                        return SizedBox(
-                          // Calculating width to fit 2 items per row with padding
-                          width: (MediaQuery.of(context).size.width / 2) - 30.w,
-                          child: _buildRadioButton(
-                              "${event['type']} ${event['price']}", true),
-                        );
-                      }).toList(),
-                    )),
+                    Obx(
+                      () => Wrap(
+                        spacing: 15.w, // Horizontal space between items
+                        runSpacing: 12.h, // Vertical space between lines
+                        children: controller.eventTypes.map((event) {
+                          return SizedBox(
+                            // Calculating width to fit 2 items per row with padding
+                            width:
+                                (MediaQuery.of(context).size.width / 2) - 30.w,
+                            child: _buildRadioButton(
+                              "${event['type']} ${event['price']}",
+                              true,
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
 
                     SizedBox(height: 25.h),
 
                     // --- FIXED: Showing content from controller ---
-                    _buildSection("Included", controller.includedController.text),
+                    _buildSection(
+                      "Included",
+                      controller.includedController.text,
+                    ),
                     SizedBox(height: 25.h),
-                    _buildSection("Excluded", controller.excludedController.text),
+                    _buildSection(
+                      "Excluded",
+                      controller.excludedController.text,
+                    ),
 
                     SizedBox(height: 100.h),
                   ],
@@ -160,12 +192,18 @@ class GigDetailsScreen extends StatelessWidget {
               child: SizedBox(
                 height: 48.h,
                 child: OutlinedButton(
-                  onPressed: () => Get.back(), // Goes back to CreateNewGigScreen
+                  onPressed: () =>
+                      Get.back(), // Goes back to CreateNewGigScreen
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Color(0xFFD458FF)),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27.r)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(27.r),
+                    ),
                   ),
-                  child: Text("Edit", style: TextStyle(color: Colors.white, fontSize: 16.sp)),
+                  child: Text(
+                    "Edit",
+                    style: TextStyle(color: Colors.white, fontSize: 16.sp),
+                  ),
                 ),
               ),
             ),
@@ -183,9 +221,18 @@ class GigDetailsScreen extends StatelessWidget {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFD458FF),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(27.r)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(27.r),
+                    ),
                   ),
-                  child: Text("Done", style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.bold)),
+                  child: Text(
+                    "Done",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -199,11 +246,18 @@ class GigDetailsScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: TextStyle(color: Colors.white, fontSize: 18.sp, fontWeight: FontWeight.bold)),
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         SizedBox(height: 10.h),
         Text(
-            content.isEmpty ? "No details provided." : content,
-            style: TextStyle(color: Colors.white70, fontSize: 14.sp)
+          content.isEmpty ? "No details provided." : content,
+          style: TextStyle(color: Colors.white70, fontSize: 14.sp),
         ),
       ],
     );
@@ -214,13 +268,23 @@ class GigDetailsScreen extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          height: 16.w, width: 16.w,
+          height: 16.w,
+          width: 16.w,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(color: Colors.white70, width: 2),
           ),
           child: isSelected
-              ? Center(child: Container(height: 8.w, width: 8.w, decoration: const BoxDecoration(color: Color(0xFFD458FF), shape: BoxShape.circle)))
+              ? Center(
+                  child: Container(
+                    height: 8.w,
+                    width: 8.w,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFD458FF),
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                )
               : null,
         ),
         SizedBox(width: 8.w),

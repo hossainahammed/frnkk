@@ -47,17 +47,17 @@ flutter:
 
 
   assets:
-   - assets/images/
-   - assets/images/profile_Icon/
-   - assets/images/onboarding_images/
-   - assets/images/authentication_images/
-   - assets/images/home_images/
-   - assets/images/navbar_icons/
-   - assets/images/explore_images/
-   - assets/images/artists_profile_images/
-   - assets/images/album_images/
-   - assets/images/drawer_image/
-   - assets/images/notifications_images/
-   - assets/images/message_icons/
+    - assets/images/
+    - assets/images/profile_Icon/
+    - assets/images/onboarding_images/
+    - assets/images/authentication_images/
+    - assets/images/home_images/
+    - assets/images/navbar_icons/
+    - assets/images/explore_images/
+    - assets/images/artists_profile_images/
+    - assets/images/album_images/
+    - assets/images/drawer_image/
+    - assets/images/notifications_images/
+    - assets/images/message_icons/
 
 

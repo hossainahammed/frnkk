@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:frnkk/routes/app_routes.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:frnkk/widgets/bottom_navigation_bar/navigation_controller.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SuccessSubscriptionDialog extends StatelessWidget {
@@ -73,14 +73,13 @@ class SuccessSubscriptionDialog extends StatelessWidget {
                 /// ////////////////////////////////////////////////// For testing here i just call profile screen  ////////////////////////////////////////////
                 // onPressed: () =>Get.to(() => ProfileScreen()),
                 onPressed: () {
+                  final nav = Get.find<NavigationController>();
                   if (fromMainSwipe) {
-                    // If came from Swipe Page, go back to Home (MainSwipe)
-                    Get.offAllNamed(AppRoutes.home);
+                    nav.changeTabIndex(0);
                   } else {
-                    // Otherwise, go to Profile Screen
-                    Get.toNamed(AppRoutes.profile);
+                    nav.changeTabIndex(4);
                   }
-                  // Get.offAllNamed(AppRoutes.profile);
+                  Get.offAllNamed(AppRoutes.home);
                 },
                 child: Text(
                   "OK",

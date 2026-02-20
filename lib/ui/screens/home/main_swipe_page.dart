@@ -21,8 +21,6 @@ class _MainSwipePageState extends State<MainSwipePage> {
   final controller = Get.find<HomeController>();
   final CardSwiperController swiperController = CardSwiperController();
 
-
-
   int _activeCardIndex = 0;
 
   void _showMatchStatus(bool isFullMatch) {
@@ -118,7 +116,7 @@ class _MainSwipePageState extends State<MainSwipePage> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.asset(
-                          profile['image'],
+                          'assets/images/SingerProfile.png', // User's profile picture
                           width: 130,
                           height: 170,
                           fit: BoxFit.cover,
@@ -315,9 +313,10 @@ class _MainSwipePageState extends State<MainSwipePage> {
               children: [
                 // In MainSwipePage.dart
                 IconButton(
-                  icon: const Icon(
-                    Icons.workspace_premium,
-                    color: Colors.white,
+                  icon: Image.asset(
+                    "assets/images/subscription.png",
+                    width: 24,
+                    height: 24,
                   ),
                   onPressed: () => Get.to(
                     () => const SubscriptionScreen(),
@@ -472,9 +471,13 @@ class _MainSwipePageState extends State<MainSwipePage> {
               fontWeight: FontWeight.w600,
             ),
           ),
-          const Row(
+          Row(
             children: [
-              Icon(Icons.workspace_premium, color: Colors.white),
+              Image.asset(
+                "assets/images/subscription.png",
+                width: 24,
+                height: 24,
+              ),
               SizedBox(width: 15),
               Icon(Icons.notifications_none, color: Colors.white),
             ],
