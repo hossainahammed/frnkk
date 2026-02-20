@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:frnkk/ui/screens/InitialSetupFlow/SelectTypeScreen.dart';
+import 'package:frnkk/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {
-  // Add these lines
+  final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   var isPasswordVisible = false.obs;
   var rememberPassword = false.obs;
 
-  // It's best practice to close controllers when the screen is destroyed
   @override
   void onClose() {
     emailController.dispose();
@@ -22,12 +21,15 @@ class LoginController extends GetxController {
   void toggleRememberMe(bool? value) => rememberPassword.value = value ?? false;
 
   void login() {
-    // Now you can access the text easily:
-    print("Email: ${emailController.text}");
-    print("Password: ${passwordController.text}");
+    if (formKey.currentState!.validate()) {
+      // Access the text if valid
+      print("Email: ${emailController.text}");
+      print("Password: ${passwordController.text}");
 
+      // Perform navigation or API call here
+      Get.toNamed(AppRoutes.SelectTypeScreen);
+    }
   }
-  
 
   void forgotPassword() => Get.toNamed('/forgot-password');
 }
