@@ -73,69 +73,98 @@ class MatchList extends StatelessWidget {
       itemCount: 8, // Replace with your controller logic
       separatorBuilder: (context, index) => const SizedBox(height: 10),
       itemBuilder: (context, index) {
-        return _buildMatchTile();
+        return _MatchTile(
+          onTap: () {
+            // Add navigation or action here if needed
+          },
+        );
       },
     );
   }
+}
 
-  Widget _buildMatchTile() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-        color: Colors.transparent, // Match unselected state of MessageList
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: ListTile(
-        minTileHeight: 63,
-        leading: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2),
-              ),
-              child: const CircleAvatar(
-                radius: 25,
-                backgroundImage: AssetImage(
-                  'assets/images/artists_profile_images/selena.png',
-                ),
-              ),
-            ),
-            Positioned(
-              right: 2,
-              top: 1,
-              child: Container(
-                height: 12,
-                width: 12,
+class _MatchTile extends StatefulWidget {
+  final VoidCallback onTap;
+  const _MatchTile({required this.onTap});
+
+  @override
+  State<_MatchTile> createState() => _MatchTileState();
+}
+
+class _MatchTileState extends State<_MatchTile> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) {
+        widget.onTap();
+        Future.delayed(const Duration(milliseconds: 200), () {
+          if (mounted) setState(() => _isPressed = false);
+        });
+      },
+      onTapCancel: () => setState(() => _isPressed = false),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: _isPressed
+              ? const Color.fromARGB(255, 210, 82, 222)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: ListTile(
+          minTileHeight: 63,
+          leading: Stack(
+            children: [
+              Container(
                 decoration: BoxDecoration(
-                  color: Colors.blueAccent,
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 2),
                 ),
+                child: const CircleAvatar(
+                  radius: 25,
+                  backgroundImage: AssetImage(
+                    'assets/images/artists_profile_images/selena.png',
+                  ),
+                ),
               ),
-            ),
-          ],
-        ),
-        title: const Text(
-          "Salena Gomez",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
+              Positioned(
+                right: 2,
+                top: 1,
+                child: Container(
+                  height: 12,
+                  width: 12,
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-        subtitle: const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Last Activity",
-              style: TextStyle(color: Colors.white, fontSize: 14),
+          title: const Text(
+            "Salena Gomez",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
-            Text(
-              "12 Aug 2022 - 12:55 am",
-              style: TextStyle(color: Colors.white, fontSize: 12),
-            ),
-          ],
+          ),
+          subtitle: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Last Activity",
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+              Text(
+                "12 Aug 2022 - 12:55 am",
+                style: TextStyle(color: Colors.white, fontSize: 12),
+              ),
+            ],
+          ),
         ),
       ),
     );

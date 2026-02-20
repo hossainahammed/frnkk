@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:frnkk/widgets/app_background.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class MessageListScreen extends GetView<MessageListController> {
   const MessageListScreen({super.key});
 
@@ -37,15 +36,9 @@ class MessageListScreen extends GetView<MessageListController> {
               itemCount: controller.conversations.length,
               separatorBuilder: (context, index) => const SizedBox(height: 10),
               itemBuilder: (context, index) {
-  final chat = controller.conversations[index];
-  
-  // Wrap in Obx so this specific tile updates when selectedIndex changes
-  return Obx(() => _buildMessageTile(
-    chat,
-    controller.selectedIndex.value == index, // Check if this tile is the selected one
-    index, // Pass the index to the tile
-  ));
-},
+                final chat = controller.conversations[index];
+                return _buildMessageTile(chat, index);
+              },
             ),
           ),
         ),
@@ -53,79 +46,100 @@ class MessageListScreen extends GetView<MessageListController> {
     );
   }
 
-  Widget _buildMessageTile(Map chat, bool isSelected, int index) {
-  return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 20),
-    decoration: BoxDecoration(
-      // The color now only shows if isSelected is true
-      color: isSelected
-          ? const Color.fromARGB(255, 210, 82, 222)
-          : Colors.transparent,
-      borderRadius: BorderRadius.circular(15),
-    ),
-    child: ListTile(
-      minTileHeight: 63,
-      // Pass both index and chat data to the controller
+  Widget _buildMessageTile(Map chat, int index) {
+    return _MessageTile(
+      chat: chat,
       onTap: () => controller.goToChat(index, chat),
-      leading: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.white,
-                width: 2,
-              ),
-            ),
-            child: CircleAvatar(
-              radius: 25,
-              backgroundImage: AssetImage(chat['image']),
-            ),
-          ),
-          if (chat['hasUnread'])
-            Positioned(
-              right: 2,
-              top: 1,
-              child: Container(
-                height: 12,
-                width: 12,
+    );
+  }
+}
+
+class _MessageTile extends StatefulWidget {
+  final Map chat;
+  final VoidCallback onTap;
+
+  const _MessageTile({required this.chat, required this.onTap});
+
+  @override
+  State<_MessageTile> createState() => _MessageTileState();
+}
+
+class _MessageTileState extends State<_MessageTile> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) {
+        widget.onTap();
+        // Keep it pink for a short duration while navigation starts
+        Future.delayed(const Duration(milliseconds: 200), () {
+          if (mounted) setState(() => _isPressed = false);
+        });
+      },
+      onTapCancel: () => setState(() => _isPressed = false),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: _isPressed
+              ? const Color.fromARGB(255, 210, 82, 222)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: ListTile(
+          minTileHeight: 63,
+          leading: Stack(
+            children: [
+              Container(
                 decoration: BoxDecoration(
-                  color: Colors.blueAccent,
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.white, width: 2),
                 ),
+                child: CircleAvatar(
+                  radius: 25,
+                  backgroundImage: AssetImage(widget.chat['image']),
+                ),
               ),
-            ),
-        ],
-      ),
-      title: Text(
-        chat['name'],
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      subtitle: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Last Activity",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-            ),
+              if (widget.chat['hasUnread'])
+                Positioned(
+                  right: 2,
+                  top: 1,
+                  child: Container(
+                    height: 12,
+                    width: 12,
+                    decoration: BoxDecoration(
+                      color: Colors.blueAccent,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.white, width: 2),
+                    ),
+                  ),
+                ),
+            ],
           ),
-          Text(
-            chat['lastActivity'],
+          title: Text(
+            widget.chat['name'],
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 12,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
             ),
           ),
-        ],
+          subtitle: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Last Activity",
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+              Text(
+                widget.chat['lastActivity'],
+                style: const TextStyle(color: Colors.white, fontSize: 12),
+              ),
+            ],
+          ),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 }
